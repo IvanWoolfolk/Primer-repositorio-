@@ -2,7 +2,7 @@
 int main()
 {
     unsigned short u16Variable;
-    unsigned char operacion,u8Variable;
+    unsigned char operacion,u8Variable;                        //asignaciones
     unsigned int bits, corrimiento,u32Variable;
     
     printf("Introdusca los bits de su variable: ");
