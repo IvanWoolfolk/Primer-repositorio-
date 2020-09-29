@@ -19,21 +19,28 @@ if (Bits==8||Bits==16||Bits==32)
 	        	scanf("%d",&Cualop);
 		        	if (Cualop>=1 && Cualop<=3)
 	                 	{
-					     printf("Escoja el corrimiento de la operación");
-						 scanf("%d",&corrimiento);
+							do{
 
-	                     switch(Cualop)
-						 {
-							 case 1:
-							 printf("\nIngrese el valor a cambiar");
-							 break;
+					     		printf("Escoja el corrimiento de la operación");
+						 		scanf("%d",&corrimiento);
 
-							 case 2:
-							 break;
+								if (corrimiento>=0 && corrimiento<10 && Bits==8 || corrimiento>=0 && corrimiento<=65536 && Bits==16 || corrimiento>=0 && corrimiento< 4294967295 && Bits==32)
+	                       		{
+						 			switch(Cualop)
+						 			{
+							 			case 1:
+										printf("\nIngrese el valor a cambiar");
+										break;
 
-							 case 3:
-							 break;
-						 }
+							 			case 2:
+
+							 			break;
+
+							 			case 3:
+
+							 			break;
+							 	}   }
+						  	}
     	             	}
     
         			else 
