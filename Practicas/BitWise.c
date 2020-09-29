@@ -22,7 +22,7 @@ if (Bits==8||Bits==16||Bits==32)
 	                 	{
 							do{
 								Switch=0;
-					     		printf("Escoja el corrimiento de la operación");
+					     		printf("Escoja el corrimiento de la operación\n");
 						 		scanf("%d",&corrimiento);
 
 								if (corrimiento>=0 && corrimiento<=9 && Bits==8 || corrimiento>=0 && corrimiento<=65536 && Bits==16 || corrimiento>=0 && corrimiento< 4294967295 && Bits==32)
