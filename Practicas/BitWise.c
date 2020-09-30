@@ -1,33 +1,152 @@
 #include <stdio.h>
-#include <math.h>
-#include <conio.h>
-void main ()
+int main()
 {
-    int CuantosBits;
-    int Cualop;
-    int Switch=1;
-    printf("\n¿De cuántos bits es tu variable?\n 8 bits \n 16 bits \n 32 bits\n");
-    scanf("%d",&CuantosBits);
-
-if (CuantosBits==8||CuantosBits==16||CuantosBits==32)
-	{
-        do{
-	        printf("\n¿Qué operación deseas hacer?\n 1)AND\n 2)OR\n 3)XOR\n");
-	        scanf("%d",&Cualop);
-		        if (Cualop>=1 && Cualop<=3)
-	                 {
-	    
-    	             }
+    unsigned short u16Variable=0;                                //   32 bits                            16 bits     8 bits
+    unsigned char u8Variable=0;                                 //00000000000000000000000000000000°0000000000000000°00000000
+    unsigned int bits,operacion,corrimiento,u32Variable=0; 
     
-        else 
+    printf("Introdusca los bits de su variable: ");
+    scanf("%d",&bits);
+    if(bits==8||bits==16||bits==32)
+    {
+        while(1)   
+        {
+            printf("\nSeleccione la operación a realizar  1)AND   2)OR   3)XOR\n");
+            scanf("%d",&operacion);
+            if(operacion>=1&&operacion<=3)
             {
-            printf("\nOpción no válida, vuelva a intentarlo");
+                printf("Ingrese el corrimiento a realizar: ");  
+                scanf("%d",&corrimiento);
+                switch(operacion)
+                {
+                    case 1:                                     
+                    if(bits==8)
+                    {
+                        if(bits==8)
+                        {
+                        u8Variable &= ~( 1 << corrimiento ); 
+                        printf("El resultado es %d",u8Variable);
+                        }
+                        else if(corrimiento>8)
+                        {
+                        printf("\nopción no valida");
+                        }
+                        
+                    }
+                    else if(bits==16)
+                    {
+                        if(u16Variable>corrimiento)
+                        {
+                        u16Variable &= ~( 1 << corrimiento ); 
+                        printf("El resultado es %d",u16Variable);
+                        }
+                        else if(corrimiento>16)
+                        {
+                        printf("\nopción no valida");    
+                        }
+                    }
+                    else
+                    {
+                        if(bits==32)
+                        {
+                        u32Variable &= ~( 1 << corrimiento ); 
+                        printf("El resultado es %d",u32Variable);
+                        }
+                        else if(corrimiento>32)
+                        {
+                        printf("\nopción no valida");    
+                        }
+                    }
+                    break;
+                    
+                    case 2:
+                    if(bits==8)
+                    {
+                        if(bits==8)
+                        {
+                        u8Variable |= ( 1 << corrimiento ); 
+                        printf("El resultado es %d",u8Variable);
+                        }
+                        else if(corrimiento>8)
+                        {
+                        printf("\nopción no valida");    
+                        }
+                    }
+                    else if(bits==16)
+                    {
+                        if(bits==16)
+                        {
+                        u16Variable |= ( 1 << corrimiento ); 
+                        printf("El resultado es %d",u16Variable);
+                        }
+                        else if(corrimiento>16)
+                        {
+                        printf("\nopción no valida");    
+                        }
+                    }
+                    else
+                    {
+                        if(bits==32)
+                        {
+                        u32Variable |= ( 1 << corrimiento ); 
+                        printf("El resultado es %d",u32Variable);
+                        }
+                        else if(corrimiento>32)
+                        {
+                        printf("\nopción no valida");    
+                        }
+                    }
+                    break;
+                    
+                    case 3:
+                    if(bits==8)
+                    {
+                        if(bits==8)
+                        {
+                        u8Variable ^= ( 1 << corrimiento );   
+                        printf("El resultado es %d",u8Variable);
+                        }
+                        else if(corrimiento>8)
+                        {
+                        printf("\nopción no valida");    
+                        }
+                        
+                    }
+                    else if(bits==16)
+                    {
+                        if(bits==16)
+                        {
+                        u16Variable ^= ( 1 << corrimiento );  
+                        printf("El resultado es %d",u16Variable);
+                        }
+                        else if(corrimiento>16)
+                        {
+                        printf("\nopción no valida");    
+                        }
+                    }
+                    else
+                    {
+                        if(bits==32)
+                        {
+                        u32Variable ^= ( 1 << corrimiento );  
+                        printf("El resultado es %d",u32Variable);
+                        }
+                        else if(corrimiento>32)
+                        {
+                        printf("\nopción no valida");    
+                        }
+                    }
+                    break;
+                }
             }
-        
-        }while (Switch==1);
-	}
-else 
-	{printf("\nLa variable debe ser de 8, 16 o 32 bits.");
-	}
-    
+            else
+            {
+                printf("Error:seleccione 1,2 o 3");
+            }
+        }
+    }
+    else
+    {
+        printf("Error: Utilice 8, 16 o 32 bits");    
+    }
 }
