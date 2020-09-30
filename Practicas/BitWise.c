@@ -1,9 +1,9 @@
 #include <stdio.h>
 int main()
 {
-    unsigned short u16Variable;
-    unsigned char operacion,u8Variable;
-    unsigned int bits, corrimiento,u32Variable;
+    unsigned short u16Variable=0;                                //   32 bits                            16 bits     8 bits
+    unsigned char u8Variable=0;                                 //00000000000000000000000000000000°0000000000000000°00000000
+    unsigned int bits,operacion,corrimiento,u32Variable=0; 
     
     printf("Introdusca los bits de su variable: ");
     scanf("%d",&bits);
@@ -19,78 +19,122 @@ int main()
                 scanf("%d",&corrimiento);
                 switch(operacion)
                 {
-                    case 1:
+                    case 1:                                     
                     if(bits==8)
                     {
-                        printf("\nIngrese su variable: ");
-                        scanf("%d",&u8Variable);
+                        if(bits==8)
+                        {
                         u8Variable &= ~( 1 << corrimiento ); 
                         printf("El resultado es %d",u8Variable);
+                        }
+                        else if(corrimiento>8)
+                        {
+                        printf("\nopción no valida");
+                        }
                         
                     }
                     else if(bits==16)
                     {
-                        printf("\nIngrese su variable: ");
-                        scanf("%d",&u16Variable);
+                        if(u16Variable>corrimiento)
+                        {
                         u16Variable &= ~( 1 << corrimiento ); 
                         printf("El resultado es %d",u16Variable);
+                        }
+                        else if(corrimiento>16)
+                        {
+                        printf("\nopción no valida");    
+                        }
                     }
                     else
                     {
-                        printf("\nIngrese su variable: ");
-                        scanf("%d",&u32Variable);
+                        if(bits==32)
+                        {
                         u32Variable &= ~( 1 << corrimiento ); 
                         printf("El resultado es %d",u32Variable);
+                        }
+                        else if(corrimiento>32)
+                        {
+                        printf("\nopción no valida");    
+                        }
                     }
                     break;
                     
                     case 2:
                     if(bits==8)
                     {
-                        printf("\nIngrese su variable: ");
-                        scanf("%d",&u8Variable);
+                        if(bits==8)
+                        {
                         u8Variable |= ( 1 << corrimiento ); 
                         printf("El resultado es %d",u8Variable);
-                        
+                        }
+                        else if(corrimiento>8)
+                        {
+                        printf("\nopción no valida");    
+                        }
                     }
                     else if(bits==16)
                     {
-                        printf("\nIngrese su variable: ");
-                        scanf("%d",&u16Variable);
+                        if(bits==16)
+                        {
                         u16Variable |= ( 1 << corrimiento ); 
                         printf("El resultado es %d",u16Variable);
+                        }
+                        else if(corrimiento>16)
+                        {
+                        printf("\nopción no valida");    
+                        }
                     }
                     else
                     {
-                        printf("\nIngrese su variable: ");
-                        scanf("%d",&u32Variable);
+                        if(bits==32)
+                        {
                         u32Variable |= ( 1 << corrimiento ); 
                         printf("El resultado es %d",u32Variable);
+                        }
+                        else if(corrimiento>32)
+                        {
+                        printf("\nopción no valida");    
+                        }
                     }
                     break;
                     
                     case 3:
                     if(bits==8)
                     {
-                        printf("\nIngrese su variable: ");
-                        scanf("%d",&u8Variable);
+                        if(bits==8)
+                        {
                         u8Variable ^= ( 1 << corrimiento );   
                         printf("El resultado es %d",u8Variable);
+                        }
+                        else if(corrimiento>8)
+                        {
+                        printf("\nopción no valida");    
+                        }
                         
                     }
                     else if(bits==16)
                     {
-                        printf("\nIngrese su variable: ");
-                        scanf("%d",&u16Variable);
+                        if(bits==16)
+                        {
                         u16Variable ^= ( 1 << corrimiento );  
                         printf("El resultado es %d",u16Variable);
+                        }
+                        else if(corrimiento>16)
+                        {
+                        printf("\nopción no valida");    
+                        }
                     }
                     else
                     {
-                        printf("\nIngrese su variable: ");
-                        scanf("%d",&u32Variable);
+                        if(bits==32)
+                        {
                         u32Variable ^= ( 1 << corrimiento );  
                         printf("El resultado es %d",u32Variable);
+                        }
+                        else if(corrimiento>32)
+                        {
+                        printf("\nopción no valida");    
+                        }
                     }
                     break;
                 }
