@@ -3,7 +3,7 @@ int main()
 {
     unsigned short u16Variable=0;                                //   32 bits                            16 bits     8 bits
     unsigned char u8Variable=0;                                 //00000000000000000000000000000000°0000000000000000°00000000
-    unsigned int bits,operacion,corrimiento,u32Variable=0; 
+    unsigned int bits,operacion,corrimiento,u32Variable=0; 		/*PM-> Notacion Hungara, trata de definir variables separadas por enter, es mas facil de leer*/
     
     printf("Introdusca los bits de su variable: ");
     scanf("%d",&bits);
@@ -13,13 +13,13 @@ int main()
         {
             printf("\nSeleccione la operación a realizar  1)AND   2)OR   3)XOR\n");
             scanf("%d",&operacion);
-            if(operacion>=1&&operacion<=3)
+            if(operacion>=1&&operacion<=3)											/*PM->Evita numeros magicos, mejor usa defines*/
             {
                 printf("Ingrese el corrimiento a realizar: ");  
                 scanf("%d",&corrimiento);
                 switch(operacion)
                 {
-                    case 1:                                     
+                    case 1:                                     /*PM->Evita numeros magicos, mejor usa defines*/
                     if(bits==8)
                     {
                         if(bits==8)
@@ -59,7 +59,7 @@ int main()
                     }
                     break;
                     
-                    case 2:
+                    case 2:										/*PM->Evita numeros magicos, mejor usa defines*/
                     if(bits==8)
                     {
                         if(bits==8)
@@ -98,7 +98,7 @@ int main()
                     }
                     break;
                     
-                    case 3:
+                    case 3:										/*PM->Evita numeros magicos, mejor usa defines*/
                     if(bits==8)
                     {
                         if(bits==8)
