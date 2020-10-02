@@ -1,17 +1,17 @@
-#include <stdio.h>
-#include <math.h>
-#include <conio.h>
-void main ()
+#include <stdio.h>																/*PM -> El nombre de tu archivo no debe tener espacios ni caracteres especiales, como el acento*/
+//#include <math.h>																/*PM -> No son necesarias*/
+//#include <conio.h>																/*PM -> No son necesarias*/
+void main ()																	/*PM -> Define tipo void como argumento al main*/
 {
-    int Bits,corrimiento;
-    int Cualop;
-    int Switch=1;
+    int Bits,corrimiento;														/*PM -> Notacion Hungara 32..., define el tipo unsigned/signed*/
+    int Cualop;																	/*PM -> Notacion Hungara 32..., define el tipo unsigned/signed*/
+    int Switch=1;																/*PM -> Notacion Hungara 32..., define el tipo unsigned/signed*/
 	unsigned long u32variable32;
     printf("\n¿De cuántos bits es tu variable?\n 8 bits \n 16 bits \n 32 bits\n");
     scanf("%d",&Bits);
 
 if (Bits==8||Bits==16||Bits==32)
-	{
+	{																			/*PM-> Cuida la indentacion, tienes codigo no alineado*/
         	do{
 	           printf("\n¿Qué operación deseas hacer?\n 1)AND\n 2)OR\n 3)XOR\n 4)Salir\n");
 	        	scanf("%d",&Cualop);
@@ -28,20 +28,20 @@ if (Bits==8||Bits==16||Bits==32)
 							 			case 1:
 							 			//AND 
 										u32variable32 &= ~(1 << corrimiento);
-										printf("El resultado es %d\n",u32variable32);
+										printf("El resultado es %d\n",u32variable32);		/*PM -> Las operaciones se estan realizando mal*/
 										
 										break;
 
 							 			case 2:
 							 			//OR
                                         u32variable32 |= (1 << corrimiento);
-										printf("El resultado es %d\n",u32variable32);
+										printf("El resultado es %d\n",u32variable32);		/*PM -> Las operaciones se estan realizando mal*/
 							 			break;
 
 							 			case 3:
 							 			//XOR
                                         u32variable32 ^= (1 << corrimiento);
-										printf("El resultado es %d\n",u32variable32);
+										printf("El resultado es %d\n",u32variable32);		/*PM -> Las operaciones se estan realizando mal*/
 							 			break;
 							 			
 							 			case 4:
