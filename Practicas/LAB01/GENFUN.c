@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <GENFUN.h>
-
+#include <stdlib.h>
 
 void main (void)
 {
