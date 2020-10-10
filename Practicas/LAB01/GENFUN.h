@@ -18,8 +18,11 @@ typedef unsigned char uint32;
 #define ARRAY_NUM_VALUE0 {0,0,0,0,0,0,0,0,0,0,0,0}
 #define MAX_VALUE 255
 #define MAX_VALUE2 254
-#define MinRand 1
-#define MaxRand 16
+#define MinRand 20
+#define MaxRand 40
+#define MaxChain 50
+#define CARACTER 124
+
 
 
 /*Function Prototypes*/
@@ -31,4 +34,4 @@ uint8 GENFUN_u8GetAverage (uint8 *pu8Src, uint8 u8SizeOfList);
 void GENFUN_u8MemCopy (uint8 *pu8Src, uint8 *pu8Dest, uint8 u8SizeOfList);
 void GENFUN_vSortList (uint8 *pu8Src, uint8 *pu8Dest, uint8 u8SizeOfList);
 void GENFUN_vSoftSignal (uint8 *pu8Src, uint8 *pu8Dest);
-void GENFUN_vFilterSignal (uint32 *pu32Src, uint32 *pu32Dest, uint32 u32MaxVal, uint32 u32MinVal) ;
+void GENFUN_vFilterSignal (uint32 *pu32Src, uint32 *pu32Dest, uint32 u32MinRand) ;

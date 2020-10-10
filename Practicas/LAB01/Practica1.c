@@ -95,7 +95,7 @@ void main(void)
 
     //funcion 9
     printf("\n\n Funcion 9 FilterSignal \n");
-    GENFUN_vFilterSignal(&au32arraynum[0],&au32arraynum2[0],MaxRand,MinRand);
+    GENFUN_vFilterSignal(&au32arraynum[0],&au32arraynum2[0],MinRand);
 }
                             
 void GENFUN_vCAPSON (uint8 *pu8Src, uint8 u8SizeOFList)
@@ -228,13 +228,13 @@ void GENFUN_vSoftSignal (uint32 *pu32Src, uint32 *pu32Dest)
         {
             *pu32Src = rand() % 10;
 
-            printf("%c %d %c",124,*pu32Src,124);
+            printf("%c %d %c",CARACTER,*pu32Src,CARACTER);
 
             cambio--;
             pu32Src++;
         }
 
-    pu32Src=pu32Src-255;
+    pu32Src=pu32Src-MAX_VALUE;
     
 
 
@@ -248,46 +248,40 @@ void GENFUN_vSoftSignal (uint32 *pu32Src, uint32 *pu32Dest)
             promedio=(s/2);
             *pu32Dest=promedio;
 
-            printf("%c %d %c",124,*pu32Dest,124);
+            printf("%c %d %c",CARACTER,*pu32Dest,CARACTER);
 
             cambio2--;
             pu32Dest++;
         }
 }
-void GENFUN_vFilterSignal (uint32 *pu32Src, uint32 *pu32Dest, uint32 u32MaxRand, uint32 u32MinRand){
+void GENFUN_vFilterSignal (uint32 *pu32Src, uint32 *pu32Dest, uint32 u32MinRand)
+{
     uint8 cambio = MAX_VALUE;
     uint8 cambio2 = MAX_VALUE;
     uint8 aux=0;
 
-    printf("El arreglo llenado por números aleartorios del %d al %d es:\n",u32MinRand,u32MaxRand);
+        ////Rango es de 20 a 40/// 
 
-    u32MaxRand--;
+    printf("El arreglo va a ser llenado por números aleartorios del 20 al 40 \n");
+    u32MinRand--;
         while(cambio!= 0)
         {
-            *pu32Src = (u32MinRand) + (rand() % u32MaxRand);
+            *pu32Src = (1) + (rand() % MaxChain);
             *pu32Dest=aux;
+            if(*pu32Src<=MinRand)
+            {
+             *pu32Src=MinRand;     
+            }
+            else if(*pu32Src>=MaxRand)
+            {
+            *pu32Src=MaxRand;
+            }
 
-            printf("%c %d %c",124,*pu32Src,124);
+            printf("%c %d %c",CARACTER,*pu32Src,CARACTER);
 
             cambio--;
             pu32Src++;
-            pu32Dest++;
-        }
-    pu32Src=pu32Src-255;
-    pu32Dest=pu32Dest-1;
-
-    printf("\n Nueva cadena : \n");
-    
-        while(cambio2 != 0)
-        {
-            aux = *pu32Src;
-            *pu32Dest=aux;
-            pu32Src++;
-            pu32Dest++;
-            cambio2--;
-            printf("%c %d %c",124,*pu32Dest,124);
-
             
         }
-
+        
 }
