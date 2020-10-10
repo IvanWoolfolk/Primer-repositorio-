@@ -40,104 +40,147 @@ void main(void)
     GENFUN_u8MemSet (&au8array[0], u8Char2Set,VALUE_ARRAY);
     printf("\nLa nueva cadena es %s",au8array);
     
+    //funcion 8
+    printf("Funcion 8 *SoftSignal*\n");
+    GENFUN_vSoftSignal (&au32arraynum[0], &au32arraynum2[0]);
+
     //funcion 9
-    printf("\n\n        Funcion FilterSignal \n");
+    printf("Funcion 9 *FilterSignal*\n");
     GENFUN_vFilterSignal(&au32arraynum[0],&au32arraynum2[0],MaxVal,MinVal);
 }
-                            
+       
+
+
 void GENFUN_vCAPSON (uint8 *pu8Src, uint8 u8SizeOFList)
 {
-    while(u8SizeOFList !=0)
-    {               //96                             //123
-        if(*pu8Src>ASCII_LOW_THRESHOLD_OFF_ON && *pu8Src<ASCII_HIGH_THRESHOLD_OFF_ON)
-        {
-            *pu8Src -= ASCII_CONVERTION_FACTOR;
+        while(u8SizeOFList !=0)
+        {               //96                             //123
+            if(*pu8Src>ASCII_LOW_THRESHOLD_OFF_ON && *pu8Src<ASCII_HIGH_THRESHOLD_OFF_ON)
+            {
+                *pu8Src -= ASCII_CONVERTION_FACTOR;
+            }
+            else
+            {
+                /*nothing to do*/
+            }
+            pu8Src++;
+            u8SizeOFList--;
         }
-        else
-        {
-            /*nothing*/
-        }
-        pu8Src++;
-        u8SizeOFList--;
-    }
 }
 
 void GENFUN_vCAPSOFF (uint8 *pu8Src, uint8 u8SizeOFList)
 {
-    while(u8SizeOFList !=0)
-    {              //96                                //123
-        if(*pu8Src>ASCII_LOW_THRESHOLD_OFF_OFF && *pu8Src<ASCII_HIGH_THRESHOLD_OFF_OFF)
-        {
-            *pu8Src += ASCII_CONVERTION_FACTOR;
+        while(u8SizeOFList !=0)
+        {              //96                                //123
+            if(*pu8Src>ASCII_LOW_THRESHOLD_OFF_OFF && *pu8Src<ASCII_HIGH_THRESHOLD_OFF_OFF)
+            {
+                *pu8Src += ASCII_CONVERTION_FACTOR;
+            }
+            else
+            {
+                /*nothing to do*/
+            }
+            pu8Src++;
+            u8SizeOFList--;
         }
-        else
-        {
-            /*nothing*/
-        }
-        pu8Src++;
-        u8SizeOFList--;
-    }
 }
 
 uint8 GENFUN_u8GetOccurence (uint8 *pu8Src, uint8 u8Target, uint8 u8SizeOfList )
 {
     int u8Elements=0;
-    while(u8SizeOfList!=0)
-    {
-        if(*pu8Src==u8Target)
+        while(u8SizeOfList!=0)
         {
-             u8Elements++;
+            if(*pu8Src==u8Target)
+            {
+                 u8Elements++;
+            }
+            else
+            {
+                //nothing to do//
+            }
+        u8SizeOfList--;
+        pu8Src++;
         }
-        else
-        {
-            //nothing to do
-        }
-    u8SizeOfList--;
-    pu8Src++;
-    }
     return u8Elements;
 }
 
 void GENFUN_u8MemSet (uint8 *pu8Src, uint8 u8Char2Set, uint8 u8SizeOfList)
 {
-    while(u8SizeOfList!=0)
-    {
-        *pu8Src=u8Char2Set; 
-        pu8Src++;
-        u8SizeOFList--;
-    }
+        while(u8SizeOfList!=0)
+        {
+            *pu8Src=u8Char2Set; 
+            pu8Src++;
+            u8SizeOFList--;
+        }
 
 }
 
+void GENFUN_vSoftSignal (uint32 *pu32Src, uint32 *pu32Dest) 
+{
+    uint8 indice = END_SOFT;
+    uint8 indice2 = END_SOFT_2;
+    uint8 prom=0,num=0,sum=0;
+    
+    printf("Los valores aleartorios del primer arreglo son: \n");
+        while(indice!= 0)
+            {
+                *pu32Src = rand() % 10;
+
+                printf("  %d   ",*pu32Src);
+
+                indice--;
+                pu32Src++;
+            }
+    pu32Src=pu32Src-255;
+    printf("\n El resultado es: \n");
+        
+        while(indice2 != 0)
+            {
+                num = *pu32Src;
+                pu32Src++;
+                sum=(num+*pu32Src);
+                prom=(sum/2);
+                *pu32Dest=prom;
+
+                printf("  %d  ",*pu32Dest );
+
+                indice2--;
+                pu32Dest++;
+            }
+}
 void GENFUN_vFilterSignal (uint32 *pu32Src, uint32 *pu32Dest, uint32 u32MaxVal, uint32 u32MinVal) 
 {
     uint8 indice = END_SOFT;
     uint8 indice2 = END_SOFT;
     uint8 o=0;
-    printf("Se mostrara los valores almacenados aleatoriamente en el primer areglo con el limite menor de %d y el limite mayor de %d\n",u32MinVal,u32MaxVal);
+    printf("Los valores aleartorios del primer arreglo del %d al %d\n",u32MinVal,u32MaxVal);
     u32MaxVal--;
-    while(indice!= 0)
-    {
-        *pu32Src = (u32MinVal) + (rand() % u32MaxVal);
-        *pu32Dest=o;
-        printf("  %d   ",*pu32Src);
-        indice--;
-        pu32Src++;
-        pu32Dest++;
-    }
+        while(indice!= 0)
+            {
+                *pu32Src = (u32MinVal) + (rand() % u32MaxVal);
+                *pu32Dest=o;
+
+                printf("  %d   ",*pu32Src);
+
+                indice--;
+                pu32Src++;
+                pu32Dest++;
+            }
     pu32Src=pu32Src-255;
     pu32Dest=pu32Dest-1;
 
-    printf("\n Se guardaran los resultados en otra cadena distinta : \n");
+    printf("\n Nueva cadena : \n");
     
-    while(indice2 != 0)
-    {
-        o = *pu32Src;
-        *pu32Dest=o;
-        pu32Src++;
-        pu32Dest++;
-        printf("  %d   ",*pu32Dest );
-        indice2--;
-    }
+        while(indice2 != 0)
+            {
+                o = *pu32Src;
+                *pu32Dest=o;
+                pu32Src++;
+                pu32Dest++;
+
+                printf("  %d   ",*pu32Dest );
+
+                indice2--;
+            }
 
 }
