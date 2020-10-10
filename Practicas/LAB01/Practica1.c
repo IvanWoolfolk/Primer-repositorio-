@@ -40,7 +40,9 @@ void main(void)
     GENFUN_u8MemSet (&au8array[0], u8Char2Set,VALUE_ARRAY);
     printf("\nLa nueva cadena es %s",au8array);
     
-    
+    //funcion 9
+    printf("\n\n        Funcion FilterSignal \n");
+    GENFUN_vFilterSignal(&au32arraynum[0],&au32arraynum2[0],MaxVal,MinVal);
 }
                             
 void GENFUN_vCAPSON (uint8 *pu8Src, uint8 u8SizeOFList)
@@ -103,6 +105,39 @@ void GENFUN_u8MemSet (uint8 *pu8Src, uint8 u8Char2Set, uint8 u8SizeOfList)
         *pu8Src=u8Char2Set; 
         pu8Src++;
         u8SizeOFList--;
+    }
+
+}
+
+void GENFUN_vFilterSignal (uint32 *pu32Src, uint32 *pu32Dest, uint32 u32MaxVal, uint32 u32MinVal) 
+{
+    uint8 indice = END_SOFT;
+    uint8 indice2 = END_SOFT;
+    uint8 o=0;
+    printf("Se mostrara los valores almacenados aleatoriamente en el primer areglo con el limite menor de %d y el limite mayor de %d\n",u32MinVal,u32MaxVal);
+    u32MaxVal--;
+    while(indice!= 0)
+    {
+        *pu32Src = (u32MinVal) + (rand() % u32MaxVal);
+        *pu32Dest=o;
+        printf("  %d   ",*pu32Src);
+        indice--;
+        pu32Src++;
+        pu32Dest++;
+    }
+    pu32Src=pu32Src-255;
+    pu32Dest=pu32Dest-1;
+
+    printf("\n Se guardaran los resultados en otra cadena distinta : \n");
+    
+    while(indice2 != 0)
+    {
+        o = *pu32Src;
+        *pu32Dest=o;
+        pu32Src++;
+        pu32Dest++;
+        printf("  %d   ",*pu32Dest );
+        indice2--;
     }
 
 }
