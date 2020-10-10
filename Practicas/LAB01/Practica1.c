@@ -16,6 +16,8 @@ void main(void)
     uint32 au32arraynum[MAX_VALUE];
     uint32 au32arraynum2[MAX_VALUE];
     uint8 AVERAGE;
+
+
     //funcion 1
     printf("Funcion 1 *CapsOn* \n");
     printf("Original : %s\n",au8array);
@@ -23,6 +25,7 @@ void main(void)
     GENFUN_vCAPSON (&au8array[0], VALUE_ARRAY);
     printf("%s\n\n", au8array);
     
+
     //funcion 2
     printf("Funcion 2 *CapsOFF* \n");
     printf("Original : %s\n",au8array);
@@ -30,6 +33,7 @@ void main(void)
     GENFUN_vCAPSOFF (&au8array[0], VALUE_ARRAY);
     printf("%s\n\n", au8array);
     
+
     //funcion 3
     printf("Funcion 3 *GetOccurence*\n");
     printf("Cadena a buscar : %s\n",au8array);
@@ -37,6 +41,7 @@ void main(void)
     u8VALOR=GENFUN_u8GetOccurence (&au8array[0],u8Target,VALUE_ARRAY);
     printf("La letra se encontro %d veces\n\n", u8VALOR);
     
+
     //funcion 4
     printf("Funcion 4 *MemSet*\n");
     printf("Cadena a utilizar: %s\n",au8array);
@@ -44,6 +49,7 @@ void main(void)
     GENFUN_u8MemSet (&au8array[0], u8Char2Set,VALUE_ARRAY);
     printf("\nLa nueva cadena es %s",au8array);
     
+
     //funcion 5
     printf("\n\nFuncion 5 *Average*\n");
     printf("Promedio de la siguiente cadena={ ");
@@ -55,6 +61,7 @@ void main(void)
     AVERAGE=GENFUN_u8GetAverage (&au8arraynum[0],ARRAY_SIZE);
     printf("\nAverage=%d\n\n",AVERAGE);
     
+
     //funcion 6 
     printf("Funcion 6 *MemSet*\n");
     printf("Cadena 1: %s\n",au8array);
@@ -63,7 +70,8 @@ void main(void)
     printf("La nueva cadena 1 es: %s",au8array);
     printf("\nLa nueva cadena 2 es: %s",au8array2);  
     
-    //funcion 7
+
+    //funcion7
     printf("\n\nFuncion 7 *SortlList*\n");
     printf("Cadena desordenada={ ");
     for(i=0;i<ARRAY_SIZE;i++)
@@ -71,17 +79,19 @@ void main(void)
         printf("%d ",au8arraynum[i]);
     }
     printf("}");
-    GENFUN_vSortList (&au8arraynum[0],&au8arraynum2[0],ARRAY_SIZE);
-    printf("\nCadena ordenada: {");
+    GENFUN_vSortList (&au8arraynum[0],&au8arraynum[0],ARRAY_SIZE);
+    printf("\nCadena ordenada={ ");
     for(i=0;i<ARRAY_SIZE;i++)
     {
-        printf("%d ",au8arraynum[i]);    
+        printf("%d ",au8arraynum[i]);
     }
-    printf("}");
+    printf("}");+
+
     
     //funcion 8
     printf("\n\n    Funcion 8 SoftSignal \n");
     GENFUN_vSoftSignal (&au32arraynum[0], &au32arraynum2[0]);   
+
 
     //funcion 9
     printf("\n\n Funcion 9 FilterSignal \n");
@@ -183,20 +193,27 @@ uint8 RESPALDO;
 
 void GENFUN_vSortList (uint8 *pu8Src, uint8 *pu8Dest, uint8 u8SizeOfList)
 {
-  uint8 k;
-  uint8 l;
-  uint8 MEMORY;
-      for(*pu8Src=0;*pu8Src<VALUE_ARRAY;*pu8Src++)
-      {
-          for(*pu8Src=1;*pu8Src<VALUE_ARRAY;*pu8Src++)
-          {
-              MEMORY=*pu8Src;
-              *pu8Dest=*pu8Src;
-              *pu8Src=MEMORY;
-              
-          }
-      }
-    
+    uint8 MEMORY;
+    uint8 j;
+    uint8 k;
+    uint8 au8arraynum3[ARRAY_SIZE]=ARRAY_NUM_VALUE;
+    for(j=0;j<=ARRAY_SIZE;j++)
+    {
+        for(k=j+1;k<=ARRAY_SIZE-1;k++)
+        {
+            if(au8arraynum3[j]>au8arraynum3[k])
+            {
+                MEMORY=au8arraynum3[j];
+                au8arraynum3[j]=au8arraynum3[k];
+                au8arraynum3[k]=MEMORY;
+           }  
+       }
+   } 
+   for (j=0;j<ARRAY_SIZE;j++)
+   {
+       *pu8Src=au8arraynum3[j];
+       pu8Src++;
+   }
 }
 
 
