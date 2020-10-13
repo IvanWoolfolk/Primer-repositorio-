@@ -3,6 +3,9 @@
 #include "time.h" 
 #include "GENFUN.h"
 
+
+/*Nota 85*/
+
 void main(void)
 {
     uint8 i;
@@ -176,7 +179,7 @@ uint8 GENFUN_u8GetAverage (uint8 *pu8Src, uint8 u8SizeOfList)
     return RESULTADO;
 }
 
-void GENFUN_u8MemCopy (uint8 *pu8Src, uint8 *pu8Dest, uint8 u8SizeOfList)       
+void GENFUN_u8MemCopy (uint8 *pu8Src, uint8 *pu8Dest, uint8 u8SizeOfList)       /*Se tenia que copiar de 1 cadena a otra solamente*/
 {
 uint8 RESPALDO;
      while(u8SizeOfList!=0)
@@ -254,7 +257,7 @@ void GENFUN_vSoftSignal (uint32 *pu32Src, uint32 *pu32Dest)
             pu32Dest++;
         }
 }
-void GENFUN_vFilterSignal (uint32 *pu32Src, uint32 *pu32Dest, uint32 u32MinRand)
+void GENFUN_vFilterSignal (uint32 *pu32Src, uint32 *pu32Dest, uint32 u32MinRand)        /*No tenias por que llenar el arreglo dentro de la funcion y asi no era el prototipo*/
 {
     uint8 cambio = MAX_VALUE;
     uint8 cambio2 = MAX_VALUE;
