@@ -22,13 +22,15 @@ uint8 u8LuhnCheck	(uint8 *pu8Data)
 	uint8 u8NEW_VALUE=0;
 	uint16 u16RESULTADO_SUM=0;
 	uint8 u8LIST_SIZE=ArraySize;
-printf("El número de tarjeta es:");
+	
+	printf("El número de tarjeta es:");
+
 	while(u8LIST_SIZE != 0)
 	{
-
 		u8NEW_VALUE = *pu8Data;
-//printf("%d",pu8Data);//
-printf("%d",*pu8Data);
+		//printf("%d",pu8Data);//
+		printf("%d",*pu8Data);
+
 			if(u8LIST_SIZE % MOD_2 == 0)
 			{
 				u8NEW_VALUE=(*pu8Data)*MOD_2;
@@ -48,10 +50,10 @@ printf("%d",*pu8Data);
 				//Nothing to do//
 			}
 
-			u16RESULTADO_SUM+=u8NEW_VALUE;
-			pu8Data++;
-			u8LIST_SIZE--;
-			u16RESULTADO_SUM = u16RESULTADO_SUM % MAX_NUM10;
+		u16RESULTADO_SUM+=u8NEW_VALUE;
+		pu8Data++;
+		u8LIST_SIZE--;
+		u16RESULTADO_SUM = u16RESULTADO_SUM % MAX_NUM10;
 	}
 
 	return u16RESULTADO_SUM;
