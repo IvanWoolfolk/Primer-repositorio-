@@ -1,42 +1,41 @@
 #include <stdio.h>
 #include "Define.h"
 
-uint8 u8LuhnCheck (uint8 *pu8Data );
-
 void main ( void )
 {
-	uint8 au8CardNumber[ArraySize] = {5,8,8,8,1,4,1,9,0,8,8,8,8,8,8,5};
+	uint8 au8CardNumber[ArraySize] = ARRAY_EXAMPLE_VALID;
 	uint8 u8Check=0;
-
 	u8Check = u8LuhnCheck(&au8CardNumber[0]);
 
 	if( u8Check == 0)
 	{
-		printf("Si");
+		printf("\nEl número de tarjeta es valido");
 	}
 	else
 	{
-		printf("El número de tarjeta no es válido");
+		printf("\nEl número de tarjeta es invalido");
 	}
 }
 
-uint8 u8LuhnCheck (uint8 *pu8Data)
+uint8 u8LuhnCheck	(uint8 *pu8Data)
 {
 	uint8 u8NEW_VALUE=0;
 	uint16 u16RESULTADO_SUM=0;
 	uint8 u8LIST_SIZE=ArraySize;
-
-	while(u8NEW_VALUE != 0)
+printf("El número de tarjeta es:");
+	while(u8LIST_SIZE != 0)
 	{
-		u8NEW_VALUE=*pu8Data;
 
-			if(*pu8Data % MOD == 0)
+		u8NEW_VALUE = *pu8Data;
+//printf("%d",pu8Data);//
+printf("%d",*pu8Data);
+			if(u8LIST_SIZE % MOD_2 == 0)
 			{
-				u8NEW_VALUE=(*pu8Data)*MOD;
+				u8NEW_VALUE=(*pu8Data)*MOD_2;
 
-					if(u8NEW_VALUE>MAX_MOD)
+					if(u8NEW_VALUE>=MAX_NUM10)
 					{
-						u8NEW_VALUE = u8NEW_VALUE+(u8NEW_VALUE % MOD);
+						u8NEW_VALUE = u8NEW_VALUE-OPERACION_MOD;
 					}
 					else
 					{
@@ -52,7 +51,7 @@ uint8 u8LuhnCheck (uint8 *pu8Data)
 			u16RESULTADO_SUM+=u8NEW_VALUE;
 			pu8Data++;
 			u8LIST_SIZE--;
-			u16RESULTADO_SUM = u16RESULTADO_SUM % MOD_VALIDEZ;
+			u16RESULTADO_SUM = u16RESULTADO_SUM % MAX_NUM10;
 	}
 
 	return u16RESULTADO_SUM;
