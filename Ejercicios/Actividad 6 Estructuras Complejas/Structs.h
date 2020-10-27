@@ -26,6 +26,13 @@ typedef enum
 #define SECTOR2_SLOTS		25
 #define SECTOR3_SLOTS		7
 #define SECTOR4_SLOTS		12
+#define PAGO_16 			16
+#define ACCION_1 			1
+#define ACCION_2 			2
+#define ACCION_3 			3
+#define ACCION_4 			4
+#define ACCION_5 			5
+#define ACCION_6 			6
 
 #define INIT_PARKING_SLOTS		\
 {								\
@@ -42,4 +49,4 @@ void ShowNotAvailableSlots ( tenParkingSectors enCurrentSector );
 void ShowEarnedMoney ( tenParkingSectors enCurrentSector );
 uint8 u8AddCarToSector( tenParkingSectors enCurrentSector );
 uint8 u8RemoveCarFromSector( tenParkingSectors enCurrentSector );
-void u8ImportPaymentOfSlot( tenParkingSectors enCurrentSector );
+uint8 u8ImportPaymentOfSlot( tenParkingSectors enCurrentSector );
