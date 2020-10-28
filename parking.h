@@ -43,3 +43,4 @@ void ShowEarnedMoney ( tenParkingSectors enCurrentSector );
 uint8 u8AddCarToSector( tenParkingSectors enCurrentSector );
 uint8 u8RemoveCarFromSector( tenParkingSectors enCurrentSector );
 void u8ImportPaymentOfSlot( tenParkingSectors enCurrentSector );
+/**********************************************************************end****************************************************/
