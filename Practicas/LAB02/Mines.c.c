@@ -27,9 +27,9 @@ typedef unsigned int uint32;
 
 typedef struct
 {
-    unsigned int u8TOTAL_MINAS;
-    unsigned int u8MINAS_FALTANTES;
-    uint8 u8MINAS_DESCUBIERTAS;
+	unsigned int u8TOTAL_MINAS;
+	unsigned int u8MINAS_FALTANTES;
+	uint8 u8MINAS_DESCUBIERTAS;
 }MINESinfo;
 
 
@@ -41,6 +41,7 @@ void main(void)
     uint8 u8MINES_NEAR;
     uint8 columna_scan;
     uint8 fila_scan;
+    uint8 CONDICION_WHILE=1;
     uint8 u8DIFICULTAD=0;
     uint8 ARREGLO[FILAS][COLUMNAS];
     srand (time(NULL));
@@ -62,7 +63,7 @@ void main(void)
             GAME1.u8TOTAL_MINAS=GAME1.u8TOTAL_MINAS-1;
         }
         
-        while(1)
+        while(CONDICION_WHILE==1)
         {
             COLUMNA_PRINT();
             FILA_PRINT(ARREGLO);
@@ -71,11 +72,12 @@ void main(void)
             printf("COLUMNA SELECCIONADA: %c",columna_scan+ASCII_A);
             printf("\nCUANTAS FILAS SE DESEA DESPLAZAR: ");
             scanf("%d",&fila_scan);
-            printf("FILA SELECCIONADA: %c",fila_scan+ASCII_A);
+            printf("FILA SELECCIONADA: %c\n\n",fila_scan+ASCII_A);
+
             if( ARREGLO[fila_scan][columna_scan] == MINE )
             {
                 printf("\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver");
-                break;
+                CONDICION_WHILE=0;
             }
 
              else 
@@ -83,6 +85,9 @@ void main(void)
                 /*Game Continue*/    
             }
 /***************************meter a una funcion(retorno)********************************/
+
+    uint8 MINES_NEARBY(uint8 columna_scan, uint8 fila_scan, uint8 ARREGLO[FILAS][COLUMNAS])
+        {
             uint8 MINES_CARRY= 0;
             uint8 fila1,fila2;
             uint8 columna1, columna2;
@@ -131,10 +136,11 @@ void main(void)
                 }
             }   
 /***************buscar minas alrededor listo/ponerlas en una funcion y que retorne la cantidad cercana***************/
+            return MINES_CARRY;
         }
 
     }//finalif
-    
+    }
     else
     {
         printf("\nOpción no valida");
@@ -190,6 +196,3 @@ void TABLERO_CUBIERTO(uint8 ARREGLO[FILAS][COLUMNAS])
         }
     }
 }
-
-
-
