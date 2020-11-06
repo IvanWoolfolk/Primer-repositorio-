@@ -60,7 +60,11 @@ void main(void)
             ARREGLO[fila_aleatoria][columna_aleatoria] = MINE;
             GAME1.u8TOTAL_MINAS=GAME1.u8TOTAL_MINAS-1;
         }
+
+/*********************************************************************Mina Explosión******************************************************************/
         
+        while(1)           
+        {
         COLUMNA_PRINT();
         FILA_PRINT(ARREGLO);
         printf("\nCUANTAS COLUMNAS SE DESEA DESPLAZAR: ");   //A=0 B=1(ejemplo, si quiere seleccionar la columna B que se desplaze 1 unidad)
@@ -69,7 +73,23 @@ void main(void)
         printf("\nCUANTAS FILAS SE DESEA DESPLAZAR: ");
         scanf("%d",&fila_scan);
         printf("FILA SELECCIONADA: %c",fila_scan+ASCII_A);
-        
+
+        if( ARREGLO[fila_scan][columna_scan] == MINE )
+            {
+                printf("\nGameOver");
+                break;
+            }
+
+        else /*Game Continue*/
+            {
+                u8MINES_NEAR=MINES_NEARBY(columna_scan,fila_scan,ARREGLO);
+            }
+
+        Clear();
+        }
+
+
+        uint8 MINES_NEARBY(uint8 columna_scan, uint8 fila_scan, uint8 ARREGLO)
         {
         uint8 MINES_CARRY= 0;
         uint8 fila1,fila2;
