@@ -69,8 +69,58 @@ void main(void)
         printf("\nCUANTAS FILAS SE DESEA DESPLAZAR: ");
         scanf("%d",&fila_scan);
         printf("FILA SELECCIONADA: %c",fila_scan+ASCII_A);
+        
+        {
+        uint8 MINES_CARRY= 0;
+        uint8 fila1,fila2;
+        uint8 columna1, columna2;
+        if (fila_scan<= 0) 
+        {
+            fila1 = 0;
+        } 
+        else
+        {
+            fila1 = fila_scan - 1;
+        }
+        if (fila_scan++>= FILAS)
+        {
+            fila2 = FILAS - 1;
+        }
+        else 
+        {
+            fila2 = fila_scan++;
+        }
+        if (columna_scan <= 0) 
+        {
+            columna1 = 0;
+        } 
+        else 
+        {
+            columna1 = columna_scan - 1;
+        }
+        if (columna_scan + 1 >= COLUMNAS) 
+        {
+            columna2 = COLUMNAS - 1;
+        } 
+        else 
+        {
+            columna2 = columna_scan + 1;
+        }
+        int m;
+        for (m = fila1; m <= fila2; m++) 
+        {
+            int l;
+            for (l = columna1; l <= columna2; l++) 
+            {
+                if (ARREGLO[m][l] == MINE) 
+                {
+                    MINES_CARRY++;
+                }
+            }
+        }    
+        printf("%d",MINES_CARRY);}
 
-    }
+    }//finalif
     else
     {
         printf("\nOpción no valida");
@@ -126,4 +176,3 @@ void TABLERO_CUBIERTO(uint8 ARREGLO[FILAS][COLUMNAS])
         }
     }
 }
-
