@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "Mines.h.h"
 #include <stdlib.h>
 
 
@@ -28,9 +27,9 @@ typedef unsigned int uint32;
 
 typedef struct
 {
-	unsigned int u8TOTAL_MINAS;
-	unsigned int u8MINAS_FALTANTES;
-	uint8 u8MINAS_DESCUBIERTAS;
+    unsigned int u8TOTAL_MINAS;
+    unsigned int u8MINAS_FALTANTES;
+    uint8 u8MINAS_DESCUBIERTAS;
 }MINESinfo;
 
 
@@ -70,7 +69,6 @@ void main(void)
         printf("\nCUANTAS FILAS SE DESEA DESPLAZAR: ");
         scanf("%d",&fila_scan);
         printf("FILA SELECCIONADA: %c",fila_scan+ASCII_A);
-        u8MINES_NEAR = POSITION(columna_scan,fila_scan,ARREGLO);
 
     }
     else
@@ -129,54 +127,3 @@ void TABLERO_CUBIERTO(uint8 ARREGLO[FILAS][COLUMNAS])
     }
 }
 
-uint16 POSITION(uint8 fila_scan, uint8 columna_scan,uint8 ARREGLO[FILAS][COLUMNAS])
-{
-    int MINES_NEARBY = 0, filaInicio, filaFin, columnaInicio, columnaFin;
-    if (fila_scan<= 0) 
-    {
-        filaInicio = 0;
-    } 
-    else
-    {
-        filaInicio = fila_scan--;
-    }
-
-    if (fila_scan++ >= FILAS)
-    {
-        filaFin = FILAS--;
-    }
-    else 
-    {
-        filaFin = fila_scan++;
-    }
-
-    if (columna_scan <= 0) 
-    {
-        columnaInicio = 0;
-    } 
-    else 
-    {
-        columnaInicio = columna_scan--;
-    }
-    if (columna_scan++ >= COLUMNAS) 
-    {
-        columnaFin = COLUMNAS--;
-    } 
-    else 
-    {
-        columnaFin = columna_scan++;
-    }
-    int m;
-    for (m = filaInicio; m <= filaFin; m++) 
-    {
-        int l;
-        for (l = columnaInicio; l <= columnaFin; l++) 
-        {
-            if (ARREGLO[m][l] == MINE) 
-            {
-                MINES_NEARBY++;
-            }
-        }
-    }
-  return MINES_NEARBY;
-}
