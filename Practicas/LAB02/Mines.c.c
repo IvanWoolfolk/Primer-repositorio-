@@ -52,7 +52,8 @@ void main(void)
         uint8 u8MINES=((MINAS_BASE*u8DIFICULTAD));
         MINESinfo GAME1={u8MINES,u8MINES,0};
         printf("BUSCAMINAS, CANTIDAD DE MINAS %d\n",GAME1.u8TOTAL_MINAS);
-        TABLERO_CUBIERTO(ARREGLO);      
+        TABLERO_CUBIERTO(ARREGLO);   
+        
         while(GAME1.u8TOTAL_MINAS!=0)   //llenado aleatoria listo
         {
             uint8 fila_aleatoria = 0+(rand()%(FILAS));
@@ -60,87 +61,80 @@ void main(void)
             ARREGLO[fila_aleatoria][columna_aleatoria] = MINE;
             GAME1.u8TOTAL_MINAS=GAME1.u8TOTAL_MINAS-1;
         }
-
-/*********************************************************************Mina Explosión******************************************************************/
         
-        while(1)           
+        while(1)
         {
-        COLUMNA_PRINT();
-        FILA_PRINT(ARREGLO);
-        printf("\nCUANTAS COLUMNAS SE DESEA DESPLAZAR: ");   //A=0 B=1(ejemplo, si quiere seleccionar la columna B que se desplaze 1 unidad)
-        scanf("%d",&columna_scan);
-        printf("COLUMNA SELECCIONADA: %c",columna_scan+ASCII_A);
-        printf("\nCUANTAS FILAS SE DESEA DESPLAZAR: ");
-        scanf("%d",&fila_scan);
-        printf("FILA SELECCIONADA: %c",fila_scan+ASCII_A);
-
-        if( ARREGLO[fila_scan][columna_scan] == MINE )
+            COLUMNA_PRINT();
+            FILA_PRINT(ARREGLO);
+            printf("\nCUANTAS COLUMNAS SE DESEA DESPLAZAR: ");   //A=0 B=1(ejemplo, si quiere seleccionar la columna B que se desplaze 1 unidad)
+            scanf("%d",&columna_scan);
+            printf("COLUMNA SELECCIONADA: %c",columna_scan+ASCII_A);
+            printf("\nCUANTAS FILAS SE DESEA DESPLAZAR: ");
+            scanf("%d",&fila_scan);
+            printf("FILA SELECCIONADA: %c",fila_scan+ASCII_A);
+            if( ARREGLO[fila_scan][columna_scan] == MINE )
             {
-                printf("\nGameOver");
+                printf("\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver");
                 break;
             }
 
-        else /*Game Continue*/
+             else 
             {
-                u8MINES_NEAR=MINES_NEARBY(columna_scan,fila_scan,ARREGLO);
+                /*Game Continue*/    
             }
-
-        Clear();
-        }
-
-
-        uint8 MINES_NEARBY(uint8 columna_scan, uint8 fila_scan, uint8 ARREGLO)
-        {
-        uint8 MINES_CARRY= 0;
-        uint8 fila1,fila2;
-        uint8 columna1, columna2;
-        if (fila_scan<= 0) 
-        {
-            fila1 = 0;
-        } 
-        else
-        {
-            fila1 = fila_scan - 1;
-        }
-        if (fila_scan++>= FILAS)
-        {
-            fila2 = FILAS - 1;
-        }
-        else 
-        {
-            fila2 = fila_scan++;
-        }
-        if (columna_scan <= 0) 
-        {
-            columna1 = 0;
-        } 
-        else 
-        {
-            columna1 = columna_scan - 1;
-        }
-        if (columna_scan + 1 >= COLUMNAS) 
-        {
-            columna2 = COLUMNAS - 1;
-        } 
-        else 
-        {
-            columna2 = columna_scan + 1;
-        }
-        int m;
-        for (m = fila1; m <= fila2; m++) 
-        {
-            int l;
-            for (l = columna1; l <= columna2; l++) 
+/***************************meter a una funcion(retorno)********************************/
+            uint8 MINES_CARRY= 0;
+            uint8 fila1,fila2;
+            uint8 columna1, columna2;
+            if (fila_scan<= 0) 
             {
-                if (ARREGLO[m][l] == MINE) 
+                fila1 = 0;
+            } 
+            else
+            {
+                fila1 = fila_scan - 1;
+            }
+            if (fila_scan++>= FILAS)
+            {
+                fila2 = FILAS - 1;
+            }
+            else 
+            {
+                fila2 = fila_scan++;
+            }
+            if (columna_scan <= 0) 
+            {
+                columna1 = 0;
+            } 
+            else 
+            {
+                columna1 = columna_scan - 1;
+            }
+            if (columna_scan + 1 >= COLUMNAS) 
+            {
+                columna2 = COLUMNAS - 1;
+            } 
+            else 
+            {
+                columna2 = columna_scan + 1;
+            }
+            int m;
+            for (m = fila1; m <= fila2; m++) 
+            {
+                int l;
+                for (l = columna1; l <= columna2; l++) 
                 {
-                    MINES_CARRY++;
+                    if (ARREGLO[m][l] == MINE) 
+                    {
+                        MINES_CARRY++;
+                    }
                 }
-            }
-        }    
-        printf("%d",MINES_CARRY);}
+            }   
+/***************buscar minas alrededor listo/ponerlas en una funcion y que retorne la cantidad cercana***************/
+        }
 
     }//finalif
+    
     else
     {
         printf("\nOpción no valida");
@@ -196,3 +190,6 @@ void TABLERO_CUBIERTO(uint8 ARREGLO[FILAS][COLUMNAS])
         }
     }
 }
+
+
+
