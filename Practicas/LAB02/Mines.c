@@ -10,14 +10,14 @@ void TABLERO_CUBIERTO();
 MINES_POSITION(columna_scan,fila_scan,ARREGLO);
 
 /***********************************defines************************************/
-#define COLUMNAS 15
-#define FILAS 15
+#define COLUMNAS 8
+#define FILAS 8
 #define VALID_DIFICULTY 3
 #define MINAS_BASE 10
 #define ASCII_PALO 124
 #define ASCII_A 65
 #define UNKNOWN_CAGE '#'
-#define MINE 64
+#define MINE '@'
 #define MAX_RAND 3
 
 /*******************************typedefines************************************/
@@ -38,6 +38,14 @@ typedef struct
 
 void main(void)
 {
+    int i;
+    int j;
+    uint8 MINES_CARRY= 0;
+    uint8 fila1,fila2;
+    uint8 columna1, columna2;
+    uint8 u8MINES;
+    uint8 columna_aleatoria;
+    uint8 fila_aleatoria;
     uint8 u8MINES_NEAR;
     uint8 columna_scan;
     uint8 fila_scan;
@@ -45,35 +53,42 @@ void main(void)
     uint8 ARREGLO[FILAS][COLUMNAS];
     srand (time(NULL));
     printf("Buscaminas");
-    printf("\nIngrese la dificultad          1)Facil     2)Normal     3)Dificil\nDIFICULTAD: ");
+    printf("\nIngrese la dificultad          1)Facili     2)Normal     3)Dificil\nDIFICULTAD: ");
     scanf("%d",&u8DIFICULTAD);
     if(u8DIFICULTAD<=VALID_DIFICULTY)
     {
-        uint8 u8MINES=((MINAS_BASE*u8DIFICULTAD));
+        u8MINES=((MINAS_BASE*u8DIFICULTAD));
         MINESinfo GAME1={u8MINES,u8MINES,0};
         printf("BUSCAMINAS, CANTIDAD DE MINAS %d\n",GAME1.u8TOTAL_MINAS);
         TABLERO_CUBIERTO(ARREGLO);   
         
-        while(GAME1.u8TOTAL_MINAS!=0)   //llenado aleatoria listo
+        while(GAME1.u8TOTAL_MINAS!=0)   //llenado aleatorio listo
         {
-            uint8 fila_aleatoria = 0+(rand()%(FILAS));
-            uint8 columna_aleatoria = 0+(rand()%(COLUMNAS));             
+            fila_aleatoria = 0+(rand()%(FILAS));
+            columna_aleatoria = 0+(rand()%(COLUMNAS));             
             ARREGLO[fila_aleatoria][columna_aleatoria] = MINE;
             GAME1.u8TOTAL_MINAS=GAME1.u8TOTAL_MINAS-1;
         }
-        
+        for(i=0;i<COLUMNAS;i++)
+        {
+            for(j=0;j<FILAS;j++)
+            {
+                printf("%c ",ARREGLO[i][j]);
+            }
+            printf("\n");
+        }
         while(1)
         {
             COLUMNA_PRINT();
             FILA_PRINT(ARREGLO);
             printf("\nCUANTAS COLUMNAS SE DESEA DESPLAZAR: ");   //A=0 B=1(ejemplo, si quiere seleccionar la columna B que se desplaze 1 unidad)
             scanf("%d",&columna_scan);
-            printf("COLUMNA SELECCIONADA: %d",columna_scan);
+            printf("COLUMNA SELECCIONADA: %c",columna_scan+ASCII_A);
             printf("\nCUANTAS FILAS SE DESEA DESPLAZAR: ");
             scanf("%d",&fila_scan);
-            printf("FILA SELECCIONADA: %d\n\n",fila_scan);
-            printf("\nPRUEBA DEL ARREGLO%d",ARREGLO[fila_scan][columna_scan]);
-            if(ARREGLO[columna_scan][fila_scan] == MINE )
+            printf("FILA SELECCIONADA: %c\n\n",fila_scan+ASCII_A);
+            printf("\nPRUEBA DEL ARREGLO %d\n",ARREGLO[columna_scan][fila_scan]);
+            if( ARREGLO[columna_scan][fila_scan] == MINE )
             {
                 printf("\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver");
                 break;
@@ -83,55 +98,7 @@ void main(void)
             {
                 /*Game Continue*/    
             }
-/***************************meter a una funcion(retorno)********************************/
-            uint8 MINES_CARRY= 0;
-            uint8 fila1,fila2;
-            uint8 columna1, columna2;
-            if (fila_scan<= 0) 
-            {
-                fila1 = 0;
-            } 
-            else
-            {
-                fila1 = fila_scan - 1;
-            }
-            if (fila_scan++>= FILAS)
-            {
-                fila2 = FILAS - 1;
-            }
-            else 
-            {
-                fila2 = fila_scan++;
-            }
-            if (columna_scan <= 0) 
-            {
-                columna1 = 0;
-            } 
-            else 
-            {
-                columna1 = columna_scan - 1;
-            }
-            if (columna_scan + 1 >= COLUMNAS) 
-            {
-                columna2 = COLUMNAS - 1;
-            } 
-            else 
-            {
-                columna2 = columna_scan + 1;
-            }
-            int m;
-            for (m = fila1; m <= fila2; m++) 
-            {
-                int l;
-                for (l = columna1; l <= columna2; l++) 
-                {
-                    if (ARREGLO[m][l] == MINE) 
-                    {
-                        MINES_CARRY++;
-                    }
-                }
-            }   
-/***************buscar minas alrededor listo/ponerlas en una funcion y que retorne la cantidad cercana***************/
+
         }
 
     }//finalif
@@ -191,8 +158,4 @@ void TABLERO_CUBIERTO(uint8 ARREGLO[FILAS][COLUMNAS])
         }
     }
 }
-
-
-
-
 
