@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Mines.h"
+#include "mines.h"
 
 void main(void)
 {
     uint8 FOR_VARIABLE1;
-    uint8 FOR_VARIABLE2;
+    int FOR_VARIABLE2;
     uint8 u8MINES_NEAR;
     uint8 columna_scan;
     uint8 fila_scan;
@@ -62,7 +62,6 @@ void main(void)
              }
              else 
             {
-                Clear();
                 POSICION(fila_scan,columna_scan,ARREGLO);
                 u8MINES_NEAR=MINES_CARRY;
                 ARREGLO[fila_scan][columna_scan] = (u8MINES_NEAR+ASCII_BASE0);
@@ -197,9 +196,4 @@ void POSICION(uint8 fila_scan,uint8 columna_scan, char ARREGLO2[FILAS][COLUMNAS]
                     }
                 }
             }  
-}
-
-void Clear( void )
-{
-    system("cls||clear");   
 }
