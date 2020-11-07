@@ -65,6 +65,7 @@ void main(void)
         
         while(CONDICION_WHILE==1)
         {
+            Clear();
             COLUMNA_PRINT();
             FILA_PRINT(ARREGLO);
             printf("\nCUANTAS COLUMNAS SE DESEA DESPLAZAR: ");   //A=0 B=1(ejemplo, si quiere seleccionar la columna B que se desplaze 1 unidad)
@@ -195,4 +196,9 @@ void TABLERO_CUBIERTO(uint8 ARREGLO[FILAS][COLUMNAS])
             ARREGLO[FOR_VARIABLE1][FOR_VARIABLE2] = UNKNOWN_CAGE;
         }
     }
+}
+
+void Clear( void )
+{
+    system("cls||clear");   
 }
