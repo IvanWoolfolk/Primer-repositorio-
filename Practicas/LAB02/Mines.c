@@ -17,7 +17,7 @@ MINES_POSITION(columna_scan,fila_scan,ARREGLO);
 #define ASCII_PALO 124
 #define ASCII_A 65
 #define UNKNOWN_CAGE '#'
-#define MINE '@'
+#define MINE 64
 #define MAX_RAND 3
 
 /*******************************typedefines************************************/
@@ -68,11 +68,12 @@ void main(void)
             FILA_PRINT(ARREGLO);
             printf("\nCUANTAS COLUMNAS SE DESEA DESPLAZAR: ");   //A=0 B=1(ejemplo, si quiere seleccionar la columna B que se desplaze 1 unidad)
             scanf("%d",&columna_scan);
-            printf("COLUMNA SELECCIONADA: %c",columna_scan+ASCII_A);
+            printf("COLUMNA SELECCIONADA: %d",columna_scan);
             printf("\nCUANTAS FILAS SE DESEA DESPLAZAR: ");
             scanf("%d",&fila_scan);
-            printf("FILA SELECCIONADA: %c",fila_scan+ASCII_A);
-            if( ARREGLO[fila_scan][columna_scan] == MINE )
+            printf("FILA SELECCIONADA: %d\n\n",fila_scan);
+            printf("\nPRUEBA DEL ARREGLO%d",ARREGLO[fila_scan][columna_scan]);
+            if(ARREGLO[columna_scan][fila_scan] == MINE )
             {
                 printf("\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver\nGameOver                 GameOver                 GameOver");
                 break;
@@ -190,6 +191,8 @@ void TABLERO_CUBIERTO(uint8 ARREGLO[FILAS][COLUMNAS])
         }
     }
 }
+
+
 
 
 
