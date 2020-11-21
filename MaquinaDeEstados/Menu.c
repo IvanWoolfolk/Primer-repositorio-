@@ -9,7 +9,7 @@ void main(void)
 	uint8 CurrentState=0;
 	uint8 enSecondState;
 	uint8 enThirdState;
-	uint8 enCurrentState = idle;
+	SM_NineStates enCurrentState = idle;
 	while(ENCENDIDO!=APAGADO)
 	{
 		CurrentState+=1;
@@ -19,75 +19,75 @@ void main(void)
 			{
 				case idle:
 				{	//**Menú**//
-					printf("\nBuen Dia, ¿Que le gustaria que le sirva?\n1)Margarita\n2)Mojito\n3)Gintonic\n4)BlackRussian\n5)Manhattan\n6)Piña colada\n7)Daiquiri\n8)Cosmopolitan\n9)Martini\n");
+					printf("\n\n\n\nBuen Dia, ¿Que le gustaria que le sirva?\n1)Margarita\n2)Mojito\n3)Gintonic\n4)BlackRussian\n5)Manhattan\n6)Piña colada\n7)Daiquiri\n8)Cosmopolitan\n9)Martini\n");
 					scanf("%d",&TRAGO);
 
 					if(TRAGO==TRAGO1)
 					{//***Margarita**//
-						printf("Selecciono Margarita");
+						printf("\nSelecciono Margarita");
 						enCurrentState = enTequila;
 						enSecondState = enTripleseco;
 						enThirdState = enLimon;
 					}
 					else if(TRAGO==TRAGO2)
 					{//***Mojito**//
-						printf("Selecciono Mojito");
+						printf("\nSelecciono Mojito");
 						enCurrentState = enRon;
 						enSecondState=enLimon;
 						enThirdState=enAguagas;
 					}	
 					else if (TRAGO==TRAGO3)
 					{//***Gintonic**//
-						printf("Selecciono Gintonic");
+						printf("\nSeleccionoo Gintonic");
 						enCurrentState = enGinebra;
 						enSecondState=enTonica;
 						enThirdState=enHielo;
 					}
 					else if (TRAGO==TRAGO4)
 					{//***BlackRussian**//
-						printf("Selecciono BlackRussian");
+						printf("\nSelecciono BlackRussian");
 						enCurrentState = enVodka;
 						enSecondState=enCafe;
 						enThirdState=enHielo;
 					}
 					else if (TRAGO==TRAGO5)
 					{//***Manhattan**//
-						printf("Selecciono Manhattan");
+						printf("\nSelecciono Manhattan");
 						enCurrentState = enWhisky;
 						enSecondState=enVermut;
 						enThirdState=enHielo;
 					}
 					else if (TRAGO==TRAGO6)
 					{//***Piña colada**//
-						printf("Selecciono Piña Colada");
+						printf("\nSelecciono Piña Colada");
 						enCurrentState = enRon;
 						enSecondState=enPina;
 						enThirdState=enCoco;
 					}
 					else if (TRAGO==TRAGO7)
 					{//***Daiquiri**//
-						printf("Selecciono Daiquiri");
-						enCurrentState = enRonb;
+						printf("\nSelecciono Daiquiri");
+						SM_NineStates enCurrentState = enRonb;
 						enSecondState=enLimon;
 						enThirdState=enHielo;
 					}
 					else if (TRAGO==TRAGO8)
 					{//***Cosmopolitan**//
-						printf("Selecciono Cosmopolitan");
+						printf("\nSelecciono Cosmopolitan");
 						enCurrentState = enVodka;
 						enSecondState=enTripleseco;
 						enThirdState=enLimon;
 					}
 					else if (TRAGO==TRAGO9)
 					{//***Martini**//
-						printf("Selecciono Martini");
+						printf("\nSelecciono Martini");
 						enCurrentState = enGinebra;
 						enSecondState=enVermut;
 						enThirdState=enHielo;
 					}
 					else
 					{
-						printf("Opcion no válida");
+						printf("\nOpcion no válida");
 						enCurrentState = idle;
 					}
 					break;
@@ -349,7 +349,7 @@ void main(void)
 					break;
 				}
 
-				default:
+				
 				break;
 			}
 		}

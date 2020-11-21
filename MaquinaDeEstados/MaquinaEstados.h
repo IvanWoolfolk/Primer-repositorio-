@@ -15,24 +15,28 @@ void TABLERO_CUBIERTO();
 #define TRAGO7 7
 #define TRAGO8 8
 #define TRAGO9 9
-#define idle 0
-#define	enTequila 16
-#define	enTripleseco 17
-#define	enLimon 18
-#define	enRon 19
-#define	enGinebra 20
-#define	enWhisky 21
-#define	enTonica 22
-#define	enAguagas 23
-#define	enRonb 24
-#define	enVodka 25 
-#define	enCafe 26 
-#define	enVermut 27
-#define	enPina 28
-#define	enHielo 29
-#define	enCoco 30
+
 /*******************************typedefines************************************/
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;
 
+typedef enum
+{
+	idle = 0,
+	enTequila,
+	enTripleseco,
+	enLimon,
+	enRon,
+	enGinebra,
+	enWhisky,
+	enTonica,
+	enAguagas,
+	enRonb,
+	enVodka,
+	enCafe,
+	enVermut,
+	enPina,
+	enHielo,
+	enCoco
+}SM_NineStates;
