@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "BEBIDASLIB.h"
@@ -23,15 +22,15 @@ int main()
                 {
                     case 1:
                     {
-                    printf("\nZUMO DE LIMON:     "COLOR_RED"%d ml"COLOR_RESET,DRINKS_ml.u8ZUMO_LIMON);
-                    printf("\nZUMO DE NARANJA:   "COLOR_RED"%d ml"COLOR_RESET,DRINKS_ml.u8ZUMO_NARANJA);
-                    printf("\nRON:               "COLOR_RED"%d ml"COLOR_RESET,DRINKS_ml.u16RON);
-                    printf("\nCOCA COLA:         "COLOR_RED"%d ml"COLOR_RESET,DRINKS_ml.u16COCA_COLA);
-                    printf("\nWHISKY:            "COLOR_RED"%d ml"COLOR_RESET,DRINKS_ml.u16WHISKY);
-                    printf("\nGINEBRA:           "COLOR_RED"%d ml"COLOR_RESET,DRINKS_ml.u16GINEBRA);
-                    printf("\nTEQUILA:           "COLOR_RED"%d ml"COLOR_RESET,DRINKS_ml.u16TEQUILA);
-                    printf("\nAGUA MINERAL:      "COLOR_RED"%d ml"COLOR_RESET,DRINKS_ml.u16AGUA_MINERAL);
-                    printf("\nVODKA:             "COLOR_RED"%d ml"COLOR_RESET,DRINKS_ml.u16VODKA);
+                    printf("\nZUMO DE LIMON:     %d ml",DRINKS_ml.u8ZUMO_LIMON);
+                    printf("\nZUMO DE NARANJA:   %d ml",DRINKS_ml.u8ZUMO_NARANJA);
+                    printf("\nRON:               %d ml",DRINKS_ml.u16RON);
+                    printf("\nCOCA COLA:         %d ml",DRINKS_ml.u16COCA_COLA);
+                    printf("\nWHISKY:            %d ml",DRINKS_ml.u16WHISKY);
+                    printf("\nGINEBRA:           %d ml",DRINKS_ml.u16GINEBRA);
+                    printf("\nTEQUILA:           %d ml",DRINKS_ml.u16TEQUILA);
+                    printf("\nAGUA MINERAL:      %d ml",DRINKS_ml.u16AGUA_MINERAL);
+                    printf("\nVODKA:             %d ml",DRINKS_ml.u16VODKA);
                     printf("\n");
                     printf("Desea llenar el almacen? SI=0/NO=otro:   ");
                     scanf("%d",&ALMACEN);
@@ -52,8 +51,8 @@ int main()
                     
                     case 2:
                     {
-                    printf(COLOR_BLUE"\nGINTONIC:   250mlAGUA MINERAL   50mlGINEBRA "COLOR_RESET);
-                    if(DRINKS_ml.u16AGUA_MINERAL>=OCHO_ONZA&&DRINKS_ml.u16GINEBRA>=ONZAyMEDIA)
+                    printf("\nGINTONIC:   250mlAGUA MINERAL   50mlGINEBRA ");
+                    if(DRINKS_ml.u16AGUA_MINERAL>=OCHO_ONZA && DRINKS_ml.u16GINEBRA>=ONZAyMEDIA)
                     {
                         INTERVALO();
                         DRINKS_ml.u16AGUA_MINERAL-=OCHO_ONZA;
@@ -61,14 +60,14 @@ int main()
                     }
                     else
                     {
-                        printf(COLOR_RED"ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n"COLOR_RESET);
+                        printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
                     }
                     }
                     break;
                     
                     case 3:
                     {
-                    printf(COLOR_BLUE"\nLong Island Ice Tea:  15mlVODKA  15mlGINEBRA  15mlRON  15mlWHISKY 15mlTEQUILA 15mlZUMO de LIMON 115mlCOCA-COLA "COLOR_RESET);
+                    printf("\nLong Island Ice Tea:  15mlVODKA  15mlGINEBRA  15mlRON  15mlWHISKY 15mlTEQUILA 15mlZUMO de LIMON 115mlCOCA-COLA ");
                     if(DRINKS_ml.u8ZUMO_LIMON>=MEDIA_ONZA&&DRINKS_ml.u16COCA_COLA>=CUATRO_ONZA&&DRINKS_ml.u16GINEBRA>=MEDIA_ONZA&&DRINKS_ml.u16VODKA>=MEDIA_ONZA&&DRINKS_ml.u16RON>=MEDIA_ONZA&&DRINKS_ml.u16WHISKY>=MEDIA_ONZA&&DRINKS_ml.u16TEQUILA>=MEDIA_ONZA)
                     {
                         INTERVALO();
@@ -82,14 +81,14 @@ int main()
                     }
                     else
                     {
-                        printf(COLOR_RED"ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n"COLOR_RESET);
+                        printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
                     }
                     }
                     break;
                     
                     case 4:
                     {
-                    printf(COLOR_BLUE"\nCUBA LIBRE:   250mlCOCA-COLA   50mlRON 15mlZUMO de LIMON "COLOR_RESET);
+                    printf("\nCUBA LIBRE:   250mlCOCA-COLA   50mlRON 15mlZUMO de LIMON ");
                     if(DRINKS_ml.u16COCA_COLA>=CUATRO_ONZA&&DRINKS_ml.u16RON>=ONZAyMEDIA&&DRINKS_ml.u8ZUMO_LIMON>=MEDIA_ONZA)
                     {
                         INTERVALO();
@@ -99,14 +98,14 @@ int main()
                     }
                     else
                     {
-                        printf(COLOR_RED"ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n"COLOR_RESET);
+                        printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
                     }
                     }
                     break;
                     
                     case 5:
                     {
-                    printf(COLOR_BLUE"\nTequila Sunrise:   115mlZumo de naanja   50mlTequila "COLOR_RESET);
+                    printf("\nTequila Sunrise:   115mlZumo de naanja   50mlTequila ");
                     if(DRINKS_ml.u8ZUMO_NARANJA>=CUATRO_ONZA&&DRINKS_ml.u16TEQUILA>=ONZAyMEDIA)
                     {
                         INTERVALO();
@@ -115,14 +114,14 @@ int main()
                     }
                     else
                     {
-                        printf(COLOR_RED"ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n"COLOR_RESET);
+                        printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
                     }
                     }
                     break;
                     
                     case 6:
                     {
-                    printf(COLOR_BLUE"\nShot de Vodka:  50mlVodka "COLOR_RESET);
+                    printf("\nShot de Vodka:  50mlVodka ");
                     if(DRINKS_ml.u16VODKA>=ONZAyMEDIA)
                     {
                         INTERVALO();
@@ -130,14 +129,14 @@ int main()
                     }
                     else
                     {
-                        printf(COLOR_RED"ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n"COLOR_RESET);
+                        printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
                     }
                     }
                     break;
                     
                     case 7:
                     {
-                    printf(COLOR_BLUE"\nCaballito:  50mlTequila "COLOR_RESET);
+                    printf("\nCaballito:  50mlTequila ");
                     if(DRINKS_ml.u16TEQUILA>=ONZAyMEDIA)
                     {
                         INTERVALO();
@@ -145,7 +144,7 @@ int main()
                     }
                     else
                     {
-                        printf(COLOR_RED"ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n"COLOR_RESET);
+                        printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
                     }
                     }
                     break;
@@ -301,29 +300,13 @@ int main()
 }
 
 
-void delay(int number_of_seconds) 
-{ 
-    // Converting time into milli_seconds 
-    int milli_seconds = 1000 * number_of_seconds; 
-  
-    // Storing start time 
-    clock_t start_time = clock(); 
-  
-    // looping till required time is not achieved 
-    while (clock() < start_time + milli_seconds) 
-        ; 
-}
+
 
 void INTERVALO()
 {
     printf("\nSu bebida esta siendo preparada...");
-    delay(200);
     printf("\n...");
-    delay(200);
     printf("\n...");
-    delay(200);
     printf("\n...");
-    delay(200);
     printf("\nBebida lista\n");
-    delay(200);
 }
