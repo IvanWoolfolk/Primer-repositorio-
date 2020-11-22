@@ -2,25 +2,21 @@
 #include <stdlib.h>
 #include "BEBIDAS.h"
 #include <time.h> 
-void main(void)
+int main()
 {
-        uint8 START=1;
-        uint8 SELECTION=0;
+        uint8 START=0;
+        uint8 SELECTION=ANALYS;
         uint8 breakenCurrent=0;
         uint16 u16BEBIDA_PREP;
         uint8 ALMACEN;
-        unsigned int u8Delay = 0;
         SM_tenStates enCurrentState = enLIMON;
         srand(time(0));
          while(1)
         {
-            if(START==1)
-            {
-                printf("\nSeleccione la opcion deseada\n1)Información de las bebidad\n2)GINTONIC\n3)Long Island Ice Tea\n4)CUBA LIBRE\n5)Tequila sunrise\n6)SHOT DE VODKA\n7)Caballito\n8)Perzonalizada\n");
-                scanf("%d",&SELECTION);
                 switch(SELECTION)
                 {
                     case 1:
+                    {
                     printf("\nZUMO DE LIMON:     %d ml",DRINKS_ml.u8ZUMO_LIMON);
                     printf("\nZUMO DE NARANJA:   %d ml",DRINKS_ml.u8ZUMO_NARANJA);
                     printf("\nRON:               %d ml",DRINKS_ml.u16RON);
@@ -45,26 +41,38 @@ void main(void)
                         DRINKS_ml.u16AGUA_MINERAL=MAX_MINERAL;
                         DRINKS_ml.u16VODKA=MAX_VODKA;
                     }
+                    else
+                    {
+                        /*nothing to do*/
+                    }
+                    SELECTION=ANALYS;
+                    }
                     break;
                     
                     case 2:
+                    {
                     printf("\nGINTONIC:   250mlAGUA MINERAL   50mlGINEBRA ");
                     if(DRINKS_ml.u16AGUA_MINERAL>=OCHO_ONZA&&DRINKS_ml.u16GINEBRA>=ONZAyMEDIA)
                     {
+                        INTERVALO();
                         DRINKS_ml.u16AGUA_MINERAL-=OCHO_ONZA;
                         DRINKS_ml.u16GINEBRA-=ONZAyMEDIA;
-                        INTERVALO();
+                        SELECTION=ANALYS;
                     }
                     else
                     {
                         printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
+                        SELECTION=DRINKS_WARNING;
+                    }
                     }
                     break;
                     
                     case 3:
+                    {
                     printf("\nLong Island Ice Tea:  15mlVODKA  15mlGINEBRA  15mlRON  15mlWHISKY 15mlTEQUILA 15mlZUMO de LIMON 115mlCOCA-COLA ");
                     if(DRINKS_ml.u8ZUMO_LIMON>=MEDIA_ONZA&&DRINKS_ml.u16COCA_COLA>=CUATRO_ONZA&&DRINKS_ml.u16GINEBRA>=MEDIA_ONZA&&DRINKS_ml.u16VODKA>=MEDIA_ONZA&&DRINKS_ml.u16RON>=MEDIA_ONZA&&DRINKS_ml.u16WHISKY>=MEDIA_ONZA&&DRINKS_ml.u16TEQUILA>=MEDIA_ONZA)
                     {
+                        INTERVALO();
                         DRINKS_ml.u16COCA_COLA-=CUATRO_ONZA;
                         DRINKS_ml.u16GINEBRA-=MEDIA_ONZA;
                         DRINKS_ml.u16VODKA-=MEDIA_ONZA;
@@ -72,40 +80,50 @@ void main(void)
                         DRINKS_ml.u16WHISKY-=MEDIA_ONZA;
                         DRINKS_ml.u16TEQUILA-=MEDIA_ONZA;
                         DRINKS_ml.u8ZUMO_LIMON-=MEDIA_ONZA;
-                        INTERVALO();
+                        SELECTION=ANALYS;
                     }
                     else
                     {
                         printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
+                        SELECTION=DRINKS_WARNING;
+                    }
                     }
                     break;
                     
                     case 4:
+                    {
                     printf("\nCUBA LIBRE:   250mlCOCA-COLA   50mlRON 15mlZUMO de LIMON ");
                     if(DRINKS_ml.u16COCA_COLA>=CUATRO_ONZA&&DRINKS_ml.u16RON>=ONZAyMEDIA&&DRINKS_ml.u8ZUMO_LIMON>=MEDIA_ONZA)
-                    { 
+                    {
+                        INTERVALO();
                         DRINKS_ml.u16COCA_COLA-=CUATRO_ONZA;
                         DRINKS_ml.u16RON-=ONZAyMEDIA;
                         DRINKS_ml.u8ZUMO_LIMON-=MEDIA_ONZA;
-                        INTERVALO();
+                        SELECTION=ANALYS;
                     }
                     else
                     {
                         printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
+                        SELECTION=DRINKS_WARNING;
+                    };
                     }
                     break;
                     
                     case 5:
+                    {
                     printf("\nTequila Sunrise:   115mlZumo de naanja   50mlTequila ");
                     if(DRINKS_ml.u8ZUMO_NARANJA>=CUATRO_ONZA&&DRINKS_ml.u16TEQUILA>=ONZAyMEDIA)
                     {
+                        INTERVALO();
                         DRINKS_ml.u8ZUMO_NARANJA-=CUATRO_ONZA;
                         DRINKS_ml.u16TEQUILA-=ONZAyMEDIA;
-                        INTERVALO();
+                        SELECTION=ANALYS;
                     }
                     else
                     {
                         printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
+                        SELECTION=DRINKS_WARNING;
+                    }
                     }
                     break;
                     
@@ -114,30 +132,37 @@ void main(void)
                     printf("\nShot de Vodka:  50mlVodka ");
                     if(DRINKS_ml.u16VODKA>=ONZAyMEDIA)
                     {
-                        DRINKS_ml.u16VODKA-=ONZAyMEDIA;
                         INTERVALO();
+                        DRINKS_ml.u16VODKA-=ONZAyMEDIA;
+                        SELECTION=ANALYS;
                     }
                     else
                     {
                         printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
+                        SELECTION=DRINKS_WARNING;
                     }
                     }
                     break;
                     
                     case 7:
+                    {
                     printf("\nCaballito:  50mlTequila ");
                     if(DRINKS_ml.u16TEQUILA>=ONZAyMEDIA)
                     {
-                        DRINKS_ml.u16TEQUILA-=ONZAyMEDIA;
                         INTERVALO();
+                        DRINKS_ml.u16TEQUILA-=ONZAyMEDIA;
+                        SELECTION=ANALYS;
                     }
                     else
                     {
                         printf("ERROR: NO CONTAMOS CON LOS INGREDIENTE NECESARIOS, MÁS INFORMACION EN DRINKS INFO\n");
+                        SELECTION=DRINKS_WARNING;
+                    }
                     }
                     break;
                     
                     case 8:
+                    {
                     printf("\nIngrese la cantidad en ml que desee");
                     while(breakenCurrent==0)
                     {
@@ -261,18 +286,25 @@ void main(void)
                                 printf("\nERROR: INSUFCIENTE, MÁS INFORMACIÓN DRINKS INFO");
                                 enCurrentState=enVODKA;
                             }
+                            SELECTION=ANALYS;
                             break;
                         }
                     }
-                    INTERVALO();    
+                    INTERVALO();
                     }
-            }
-            else
-            {
-                //nothing to do
-            }
+                    
+                    case 9:
+                    {
+                    printf("\nSeleccione la opcion deseada\n2)GINTONIC\n3)Long Island Ice Tea\n4)CUBA LIBRE\n5)Tequila sunrise\n6)SHOT DE VODKA\n7)Caballito\n8)Perzonalizada\n");
+                    scanf("%d",&SELECTION);    
+                    }
+                    break;
+                }
         }
+
+    return 0;
 }
+
 
 void delay(int number_of_seconds) 
 { 
@@ -289,14 +321,15 @@ void delay(int number_of_seconds)
 
 void INTERVALO()
 {
-    printf("\nSu bebida esta siendo preparada...");
-    delay(200);
-    printf("\n...");
-    delay(200);
-    printf("\n...");
-    delay(200);
-    printf("\n...");
-    delay(200);
-    printf("\nBebida lista\n");
-    delay(200);
+    int i,j;
+    printf("\nSu bebida esta siendo preparada\n");
+    for(j=0;j<3;j++)
+    {
+        for(i=0;i<3;i++)
+        {
+        printf(".");
+        }
+        printf("\n");
+    }
+    printf("\nBebida preparada\n");
 }

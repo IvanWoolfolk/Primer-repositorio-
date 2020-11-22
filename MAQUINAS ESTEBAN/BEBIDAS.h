@@ -4,13 +4,6 @@ typedef unsigned short uint16;
 typedef unsigned int uint32;
 
 /******colors_defines********/
-#define COLOR_RED     "\x1b[31m"
-#define COLOR_GREEN   "\x1b[32m"
-#define COLOR_YELLOW  "\x1b[33m"
-#define COLOR_BLUE    "\x1b[34m"
-#define COLOR_MAGENTA "\x1b[35m"
-#define COLOR_CYAN    "\x1b[36m"
-#define COLOR_RESET   "\x1b[0m"
 #define INIT_DRINKNS_VALUE {250,750,250,1500,700,750,700,1000,700}
 #define MEDIA_ONZA 15
 #define ONZAyMEDIA 50
@@ -21,7 +14,9 @@ typedef unsigned int uint32;
 #define MAX_COCA 1500
 #define MAX_ZUMO 250
 #define MAX_RON 750
-#define bebidatimes 999999999
+#define bebidatimes 200
+#define ANALYS 9
+#define DRINKS_WARNING 1
 
 
 void delay(int number_of_seconds);
