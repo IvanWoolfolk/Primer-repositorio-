@@ -3,15 +3,14 @@
 SM_configurar enCurrentBomba = enBOMBA_A;
 void Bomba (void)
 {   
-    uint8 u8TIME;
+    uint8 u8TIME=1;
     static uint32 u32Time_A;
     static uint32 u32Time_B;
     static uint32 u32Time_C;
         switch(enCurrentBomba)
         {
-            u8TIME=1;
-            printf("Seleccione el tiempo de trabajo (minutos) de cada bomba\n");
             case enBOMBA_A:
+            printf("Seleccione el tiempo de trabajo (minutos) de cada bomba\n");
             printf("\nBomba de infusión A :   ");
     	    scanf("%d",&u32Time_A);
     	    if(u32Time_A<=TIME_MAX)
@@ -61,17 +60,17 @@ void Bomba (void)
             {
                 if(u32Time_A!=0)
                 {
-                    printf("BOMBA A: %d segundos restantes",u32Time_A);
+                    printf("\nBOMBA A: %d segundos restantes",u32Time_A);
                     u32Time_A--;
                 }
                 if(u32Time_B!=0)
                 {
-                    printf("BOMBA B: %d segundos restantes",u32Time_B);
+                    printf("\nBOMBA B: %d segundos restantes",u32Time_B);
                     u32Time_B--;
                 }
                 if(u32Time_C!=0)
                 {
-                    printf("BOMBA C: %d segundos restantes",u32Time_C);
+                    printf("\nBOMBA C: %d segundos restantes",u32Time_C);
                     u32Time_C--;
                 }
                 if(u32Time_A==0 && u32Time_B==0 && u32Time_C==0)
@@ -79,6 +78,7 @@ void Bomba (void)
                     u8TIME=0;
                     enCurrentBomba = enBOMBA_A;
                 }
+                printf("\n");
                 break;
             }
         }

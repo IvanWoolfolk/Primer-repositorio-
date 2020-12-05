@@ -1,4 +1,8 @@
 echo compiling
-gcc Elevador.c -o Ejecutar
-Ejecutar
+gcc -c Elevador.c -o Elevador.o
+
+gcc -o Elevador.exe Elevador.o 
+
+Elevador.exe
+
 pause
