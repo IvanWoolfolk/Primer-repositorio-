@@ -1,0 +1,245 @@
+typedef unsigned char uint8;
+typedef unsigned short uint16;
+typedef unsigned int uint32;
+
+#define VELOCIDAD_SONIDO 58.2
+
+typedef enum
+{
+  enMENU=0,
+  enLOBBY,
+  enFIRSTFLOOR,
+  enSECONDFLOOR,
+  enTHIRDFLOOR,
+  enCLOSE_DOOR,
+  enSENSOR
+  
+}SM_ElevStates;
+uint16 VELOCIDAD=200;
+uint8 u8FLOOR_CURRENT_VALUE=0;
+uint8 u8FLOOR_VALUE;
+uint8 u8TIME=10;
+uint8 u8MIN_VALUE=0;
+uint8 u8FLOOR_DISTANCE=0;
+uint8 i=0;
+uint8 IN_ECO=A5;
+uint8 OUT_TRIG=A4;
+uint8 IN_LOBBY=A3;
+uint8 IN_FIRSTFLOOR=A2;
+uint8 IN_SECONDFLOOR=A1;
+uint8 IN_THIRDFLOOR=A0;
+uint8 OUT_A=2;
+uint8 OUT_B=3;
+uint8 OUT_C=4;
+uint8 OUT_D=5;
+uint8 OUT_E=6;
+uint8 OUT_F=7;
+uint8 OUT_G=8;
+uint8 OUT_ENA=9;          //
+uint8 OUT_IN1=10;         //controlador L298N
+uint8 OUT_IN2=11;         //
+uint16 DURACION;
+uint16 DISTANCIA=10;
+
+
+
+void setup() 
+{
+  pinMode(IN_LOBBY, INPUT);  
+  pinMode(IN_FIRSTFLOOR, INPUT);
+  pinMode(IN_SECONDFLOOR, INPUT);
+  pinMode(IN_THIRDFLOOR, INPUT);
+  pinMode(OUT_A, OUTPUT);
+  pinMode(OUT_B, OUTPUT);
+  pinMode(OUT_C, OUTPUT);
+  pinMode(OUT_D, OUTPUT);
+  pinMode(OUT_E, OUTPUT);
+  pinMode(OUT_F, OUTPUT);
+  pinMode(OUT_G, OUTPUT);
+  pinMode(OUT_TRIG, OUTPUT);
+  pinMode(IN_ECO, INPUT);
+  pinMode(OUT_IN2, OUTPUT);
+  pinMode(OUT_IN1, OUTPUT);
+  pinMode(OUT_ENA, OUTPUT);
+  Serial.begin(9600);
+} 
+
+void loop() 
+{
+      SM_ElevStates enCurrentState = enMENU;
+      while(1)
+      {
+            switch(enCurrentState)
+            {
+                case enMENU:   
+                    for(i=0;i<=0;i++)   //print ones
+                    {
+                        delay(2000);
+                        switch(u8FLOOR_CURRENT_VALUE)
+                        {
+                            case 0:
+                            Serial.print("PISO ACTUAL: LOBBY\n");
+                            break;
+
+                            case 1:
+                            Serial.print("PISO ACTUAL: 1\n");
+                            break;
+
+                            case 2:
+                            Serial.print("PISO ACTUAL: 2\n");
+                            break;
+
+                            case 3:
+                            Serial.print("PISO ACTUAL: 3\n");
+                            break;
+                        }
+                        Serial.print("ESCOJA EL PISO DESEADO\n");
+                        while(1)
+                        {
+                            if(digitalRead(IN_LOBBY)==HIGH)
+                            {
+                               enCurrentState = enLOBBY; 
+                               break;
+                            }
+                            else if(digitalRead(IN_FIRSTFLOOR)==HIGH)
+                            {
+                               enCurrentState = enFIRSTFLOOR; 
+                               break;
+                            }
+                            else if(digitalRead(IN_SECONDFLOOR)==HIGH)
+                            {
+                               enCurrentState = enSECONDFLOOR; 
+                               break;
+                            }
+                            else if(digitalRead(IN_THIRDFLOOR)==HIGH)
+                            {
+                               enCurrentState = enTHIRDFLOOR; 
+                               break;
+                            }
+                        }
+                    }
+                break;
+      
+                case enLOBBY:
+
+                            Serial.println("Piso seleccionado: Lobby");
+                            digitalWrite(OUT_F,HIGH);
+                            digitalWrite(OUT_E,HIGH);      //print L in displey
+                            digitalWrite(OUT_D,HIGH);
+                            delay(500);
+                            digitalWrite(OUT_F,LOW);
+                            digitalWrite(OUT_E,LOW);      //print L in displey
+                            digitalWrite(OUT_D,LOW);
+                            u8FLOOR_DISTANCE=10;
+                            u8FLOOR_VALUE=0;
+                            enCurrentState = enCLOSE_DOOR;
+
+                break;
+
+                case enFIRSTFLOOR:
+
+                            Serial.println("Piso seleccionado: 1");
+                            digitalWrite(OUT_B,HIGH);      //print 1 in displey
+                            digitalWrite(OUT_C,HIGH);
+                            delay(500);
+                            digitalWrite(OUT_B,LOW);      //print 1 in displey
+                            digitalWrite(OUT_C,LOW);
+                            u8FLOOR_DISTANCE=30;
+                            u8FLOOR_VALUE=1;
+                            enCurrentState = enCLOSE_DOOR;
+            
+                break;
+
+                case enSECONDFLOOR:
+         
+                            Serial.println("Piso seleccionado: 2");
+                            digitalWrite(OUT_A,HIGH);
+                            digitalWrite(OUT_B,HIGH);
+                            digitalWrite(OUT_E,HIGH);      //print 2 in displey
+                            digitalWrite(OUT_D,HIGH);
+                            digitalWrite(OUT_G,HIGH);
+                            delay(500);
+                            digitalWrite(OUT_A,LOW);
+                            digitalWrite(OUT_B,LOW);
+                            digitalWrite(OUT_E,LOW);      //print 2 in displey
+                            digitalWrite(OUT_D,LOW);
+                            digitalWrite(OUT_G,LOW);
+                            u8FLOOR_DISTANCE=50;
+                            u8FLOOR_VALUE=2;
+                            enCurrentState = enCLOSE_DOOR;
+           
+                            
+                break;
+
+                case enTHIRDFLOOR:
+
+                            Serial.println("Piso seleccionado: 3");
+                            digitalWrite(OUT_A,HIGH);
+                            digitalWrite(OUT_B,HIGH);
+                            digitalWrite(OUT_C,HIGH);      //print 3 in displey
+                            digitalWrite(OUT_D,HIGH);
+                            digitalWrite(OUT_G,HIGH);
+                            delay(500);
+                            digitalWrite(OUT_A,LOW);
+                            digitalWrite(OUT_B,LOW);
+                            digitalWrite(OUT_C,LOW);      //print 3 in displey
+                            digitalWrite(OUT_D,LOW);
+                            digitalWrite(OUT_G,LOW);
+                            u8FLOOR_DISTANCE=70;
+                            u8FLOOR_VALUE=3;
+                            enCurrentState = enCLOSE_DOOR;
+            
+                break;
+
+                case enCLOSE_DOOR:
+                u8TIME=10;
+                Serial.print("CIERRE LAS PUERTAS o ESPERA A QUE SE CIERREN SOLAS\n");
+                while(u8TIME!=0)
+                {
+                Serial.print("TIEMPO RESTANTE: "+String(u8TIME));
+                Serial.print(" segundos\n");
+                u8TIME--;
+                delay(1000);
+                }
+                Serial.print("EMPEZANDO TRAYECTO\n");
+                enCurrentState = enSENSOR;
+                break;
+
+                case enSENSOR:
+                while(u8FLOOR_DISTANCE!=DISTANCIA)
+                {
+                            digitalWrite(OUT_TRIG,HIGH);
+                            delay(20);
+                            digitalWrite(OUT_TRIG,LOW);
+                            DURACION=pulseIn(IN_ECO,HIGH);
+                            DISTANCIA=DURACION/VELOCIDAD_SONIDO;
+                            Serial.println(DISTANCIA);
+                            delay(20);
+                            if(u8FLOOR_CURRENT_VALUE<u8FLOOR_VALUE)   //subir
+                            {
+                                analogWrite(OUT_ENA,200);  
+                                digitalWrite(OUT_IN1,HIGH);
+                                digitalWrite(OUT_IN2,LOW);
+                            }
+                            else                                //bajar
+                            {
+                              analogWrite(OUT_ENA,200);  
+                                digitalWrite(OUT_IN1,LOW);
+                                digitalWrite(OUT_IN2,HIGH);
+                            }
+                            
+
+                }
+                analogWrite(OUT_ENA,0);
+                digitalWrite(OUT_IN1,LOW);
+                digitalWrite(OUT_IN2,LOW);
+                u8FLOOR_CURRENT_VALUE=u8FLOOR_VALUE;
+                Serial.print("Trayecto completado, salga con cuidado\n");
+                delay(2000);
+                enCurrentState = enMENU;
+                break;
+      
+      
+            } 
+      }           
+}
