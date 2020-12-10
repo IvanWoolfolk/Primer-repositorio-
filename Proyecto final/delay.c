@@ -1,12 +1,12 @@
 
 void delay(int Nseconds);
 
-void main2   (	void	)
+void Moving (	void	)
 {
 	int t=0;
 	while(t!=3)
 	{
-		printf("\n Moviendose \n");
+		printf("\n Moviendose \n\n");
 		t+=1;
 		delay(1);
 	}
