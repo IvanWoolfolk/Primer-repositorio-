@@ -15,14 +15,12 @@ void main()
 	uint8 u8Scan_Floor3 = NO_REQUEST_3;
 	uint8 u8Scan_Floor4 = NO_REQUEST_4;
 	uint8 u8Acomodo=0;
-	uint8 u8PisoAux=0;
+	uint8 u8PisoAux;
 	uint8 u8NextRequest=1;
 	uint8 u8RequestState=1;
 
 	while(1)
 	{
-		printf("\nu8Scan_Floor1=%d,\nu8Scan_Floor2=%d,\nu8Scan_Floor3=%d,\nu8Scan_Floor4=%d\n",u8Scan_Floor1,u8Scan_Floor2,u8Scan_Floor4,u8Scan_Floor3);
-
 		switch	(	enCurrentState	)
 		{
 			case enLobby:
@@ -36,7 +34,7 @@ void main()
 				u8People_In+=u8People_Entering;	
 				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -63,13 +61,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
-									enCurrentState=u8Scan_Floor2;
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -84,23 +82,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									enCurrentState=u8Scan_Floor3;
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -118,29 +119,31 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
 											//**Nothing to do**//
 										}
-										u8Current_Floor=u8Scan_Floor4;
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -153,7 +156,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-							printf("\nu8Scan_Floor1=%d,\nu8Scan_Floor2=%d,\nu8Scan_Floor3=%d,\nu8Scan_Floor4=%d",u8Scan_Floor1,u8Scan_Floor2,u8Scan_Floor4,u8Scan_Floor3);
 							u8People_In-=u8People_Entering;
 
 						}
@@ -237,7 +239,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -314,7 +316,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -358,7 +360,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -391,7 +393,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -488,9 +490,9 @@ void main()
 				printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 				scanf("%d",&u8Scan_Floor1);	
 				u8People_In+=u8People_Entering;	
-				printf("\n%d\n", u8People_In);
+				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -517,12 +519,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -537,22 +540,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									else if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -560,7 +567,7 @@ void main()
 								printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 								scanf("%d",&u8Scan_Floor4);
 
-								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2)
+								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2 )
 								{
 									printf("Eligio el piso %d",u8Scan_Floor4);
 									u8NextRequest+=1;
@@ -570,18 +577,21 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
@@ -591,7 +601,7 @@ void main()
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -604,7 +614,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-
 							u8People_In-=u8People_Entering;
 
 						}
@@ -688,7 +697,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -765,7 +774,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -809,7 +818,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -842,7 +851,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -885,7 +894,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -939,9 +948,9 @@ void main()
 				printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 				scanf("%d",&u8Scan_Floor1);	
 				u8People_In+=u8People_Entering;	
-				printf("\n%d\n", u8People_In);
+				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -968,12 +977,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -988,22 +998,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									else if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -1011,7 +1025,7 @@ void main()
 								printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 								scanf("%d",&u8Scan_Floor4);
 
-								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2)
+								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2 )
 								{
 									printf("Eligio el piso %d",u8Scan_Floor4);
 									u8NextRequest+=1;
@@ -1021,18 +1035,21 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
@@ -1042,7 +1059,7 @@ void main()
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -1055,7 +1072,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-
 							u8People_In-=u8People_Entering;
 
 						}
@@ -1139,7 +1155,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -1216,7 +1232,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -1260,7 +1276,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -1293,7 +1309,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -1336,7 +1352,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -1390,9 +1406,9 @@ void main()
 				printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 				scanf("%d",&u8Scan_Floor1);	
 				u8People_In+=u8People_Entering;	
-				printf("\n%d\n", u8People_In);
+				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -1419,12 +1435,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -1439,22 +1456,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									else if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -1462,7 +1483,7 @@ void main()
 								printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 								scanf("%d",&u8Scan_Floor4);
 
-								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2)
+								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2 )
 								{
 									printf("Eligio el piso %d",u8Scan_Floor4);
 									u8NextRequest+=1;
@@ -1472,18 +1493,21 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
@@ -1493,7 +1517,7 @@ void main()
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -1506,7 +1530,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-
 							u8People_In-=u8People_Entering;
 
 						}
@@ -1590,7 +1613,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -1667,7 +1690,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -1711,7 +1734,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -1744,7 +1767,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -1787,7 +1810,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -1841,9 +1864,9 @@ void main()
 				printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 				scanf("%d",&u8Scan_Floor1);	
 				u8People_In+=u8People_Entering;	
-				printf("\n%d\n", u8People_In);
+				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -1870,12 +1893,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -1890,22 +1914,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									else if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -1913,7 +1941,7 @@ void main()
 								printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 								scanf("%d",&u8Scan_Floor4);
 
-								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2)
+								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2 )
 								{
 									printf("Eligio el piso %d",u8Scan_Floor4);
 									u8NextRequest+=1;
@@ -1923,18 +1951,21 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
@@ -1944,7 +1975,7 @@ void main()
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -1957,7 +1988,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-
 							u8People_In-=u8People_Entering;
 
 						}
@@ -2041,7 +2071,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -2118,7 +2148,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -2162,7 +2192,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -2195,7 +2225,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -2238,7 +2268,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -2292,9 +2322,9 @@ void main()
 				printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 				scanf("%d",&u8Scan_Floor1);	
 				u8People_In+=u8People_Entering;	
-				printf("\n%d\n", u8People_In);
+				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -2321,12 +2351,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -2341,22 +2372,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									else if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -2364,7 +2399,7 @@ void main()
 								printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 								scanf("%d",&u8Scan_Floor4);
 
-								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2)
+								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2 )
 								{
 									printf("Eligio el piso %d",u8Scan_Floor4);
 									u8NextRequest+=1;
@@ -2374,18 +2409,21 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
@@ -2395,7 +2433,7 @@ void main()
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -2408,7 +2446,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-
 							u8People_In-=u8People_Entering;
 
 						}
@@ -2492,7 +2529,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -2569,7 +2606,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -2613,7 +2650,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -2646,7 +2683,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -2689,7 +2726,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -2743,9 +2780,9 @@ void main()
 				printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 				scanf("%d",&u8Scan_Floor1);	
 				u8People_In+=u8People_Entering;	
-				printf("\n%d\n", u8People_In);
+				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -2772,12 +2809,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -2792,22 +2830,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									else if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -2815,7 +2857,7 @@ void main()
 								printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 								scanf("%d",&u8Scan_Floor4);
 
-								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2)
+								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2 )
 								{
 									printf("Eligio el piso %d",u8Scan_Floor4);
 									u8NextRequest+=1;
@@ -2825,18 +2867,21 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
@@ -2846,7 +2891,7 @@ void main()
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -2859,7 +2904,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-
 							u8People_In-=u8People_Entering;
 
 						}
@@ -2943,7 +2987,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -3020,7 +3064,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -3064,7 +3108,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -3097,7 +3141,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -3140,7 +3184,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -3194,9 +3238,9 @@ void main()
 				printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 				scanf("%d",&u8Scan_Floor1);	
 				u8People_In+=u8People_Entering;	
-				printf("\n%d\n", u8People_In);
+				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -3223,12 +3267,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -3243,22 +3288,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									else if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -3266,7 +3315,7 @@ void main()
 								printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 								scanf("%d",&u8Scan_Floor4);
 
-								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2)
+								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2 )
 								{
 									printf("Eligio el piso %d",u8Scan_Floor4);
 									u8NextRequest+=1;
@@ -3276,18 +3325,21 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
@@ -3297,7 +3349,7 @@ void main()
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -3310,7 +3362,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-
 							u8People_In-=u8People_Entering;
 
 						}
@@ -3394,7 +3445,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -3471,7 +3522,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -3515,7 +3566,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -3548,7 +3599,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -3591,7 +3642,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -3645,9 +3696,9 @@ void main()
 				printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 				scanf("%d",&u8Scan_Floor1);	
 				u8People_In+=u8People_Entering;	
-				printf("\n%d\n", u8People_In);
+				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -3674,12 +3725,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -3694,22 +3746,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									else if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -3717,7 +3773,7 @@ void main()
 								printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 								scanf("%d",&u8Scan_Floor4);
 
-								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2)
+								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2 )
 								{
 									printf("Eligio el piso %d",u8Scan_Floor4);
 									u8NextRequest+=1;
@@ -3727,18 +3783,21 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
@@ -3748,7 +3807,7 @@ void main()
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -3761,7 +3820,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-
 							u8People_In-=u8People_Entering;
 
 						}
@@ -3845,7 +3903,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -3922,7 +3980,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -3966,7 +4024,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -3999,7 +4057,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -4042,7 +4100,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -4096,9 +4154,9 @@ void main()
 				printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 				scanf("%d",&u8Scan_Floor1);	
 				u8People_In+=u8People_Entering;	
-				printf("\n%d\n", u8People_In);
+				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -4125,12 +4183,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -4145,22 +4204,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									else if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -4168,7 +4231,7 @@ void main()
 								printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 								scanf("%d",&u8Scan_Floor4);
 
-								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2)
+								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2 )
 								{
 									printf("Eligio el piso %d",u8Scan_Floor4);
 									u8NextRequest+=1;
@@ -4178,18 +4241,21 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
@@ -4199,7 +4265,7 @@ void main()
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -4212,7 +4278,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-
 							u8People_In-=u8People_Entering;
 
 						}
@@ -4296,7 +4361,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -4373,7 +4438,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -4417,7 +4482,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -4450,7 +4515,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -4493,7 +4558,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -4547,9 +4612,9 @@ void main()
 				printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 				scanf("%d",&u8Scan_Floor1);	
 				u8People_In+=u8People_Entering;	
-				printf("\n%d\n", u8People_In);
+				
 
-				if( u8People_In+u8People_Entering < MAX_PEOPLE)
+				if( u8People_In+u8People_Entering <= MAX_PEOPLE)
 				{
 					u8People_In+=u8People_Entering;
 
@@ -4576,12 +4641,13 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor2;
 										u8Scan_Floor2=u8PisoAux;
+										enCurrentState=u8Scan_Floor2;
 									}
 								}
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor2=END_REQUEST;
+									u8Scan_Floor2=NO_REQUEST_2;
 								}
 							}
 							else if(u8NextRequest==2)
@@ -4596,22 +4662,26 @@ void main()
 
 									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor1)
 									{
+
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
-									else if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor3 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor3;
 										u8Scan_Floor3=u8PisoAux;
+										enCurrentState=u8Scan_Floor3;
 									}
 
 								}
 								else
 								{
+
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor3=END_REQUEST;
+									u8Scan_Floor3=NO_REQUEST_3;
 								}
 							}
 							else if(u8NextRequest==3)
@@ -4619,7 +4689,7 @@ void main()
 								printf("¿A que piso desea ir? \n0)Lobby \n1)Piso 1 \n2)Piso 2 \n3)Piso 3 \n4)Piso 4 \n5)Piso 5 \n6)Piso 6 \n7)Piso 7 \n8)Piso 8 \n9)Piso 9 \n10)Piso 10\n");
 								scanf("%d",&u8Scan_Floor4);
 
-								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2)
+								if(u8Scan_Floor4!=u8Scan_Floor1 && u8Scan_Floor4!=u8Scan_Floor3 && u8Scan_Floor4!=u8Scan_Floor2 )
 								{
 									printf("Eligio el piso %d",u8Scan_Floor4);
 									u8NextRequest+=1;
@@ -4629,18 +4699,21 @@ void main()
 										u8PisoAux=u8Scan_Floor1;
 										u8Scan_Floor1=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor2)
 									{
 										u8PisoAux=u8Scan_Floor2;
 										u8Scan_Floor2=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
-									else if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
+									if(u8Current_Floor - u8Scan_Floor4 < u8Current_Floor - u8Scan_Floor3)
 									{
 										u8PisoAux=u8Scan_Floor3;
 										u8Scan_Floor3=u8Scan_Floor4;
 										u8Scan_Floor4=u8PisoAux;
+										enCurrentState=u8Scan_Floor4;
 									}
 									else
 										{
@@ -4650,7 +4723,7 @@ void main()
 								else
 								{
 									printf("Eligio un piso ya seleccionado");
-									u8Scan_Floor4=END_REQUEST;
+									u8Scan_Floor4=NO_REQUEST_4;
 								}
 							}
 							else
@@ -4663,7 +4736,6 @@ void main()
 						{
 							u8NextRequest=END_REQUEST;
 							printf("\n\nTodo listo\n\n");
-
 							u8People_In-=u8People_Entering;
 
 						}
@@ -4680,6 +4752,7 @@ void main()
 							enCurrentState=enLobby;
 							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
+
 						}
 						else if(u8Current_Floor==1)
 						{
@@ -4747,7 +4820,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor2!=NO_REQUEST_2	)
+					if( u8Scan_Floor2!=NO_REQUEST_2	&& u8Scan_Floor2!=0)
 					{
 						u8Current_Floor = u8Scan_Floor2;
 						enCurrentState = u8Scan_Floor2;
@@ -4824,7 +4897,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor3!=NO_REQUEST_3	)
+					if( u8Scan_Floor3!=NO_REQUEST_3	&& u8Scan_Floor3!=0)
 					{
 						u8Current_Floor = u8Scan_Floor3;
 						enCurrentState = u8Scan_Floor3;
@@ -4868,7 +4941,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
@@ -4901,7 +4974,7 @@ void main()
 						}
 					}
 
-					if( u8Scan_Floor4!=NO_REQUEST_4	)
+					if( u8Scan_Floor4!=NO_REQUEST_4	&& u8Scan_Floor4!=0)
 					{
 						u8Current_Floor = u8Scan_Floor4;
 						enCurrentState = u8Scan_Floor4;
@@ -4944,7 +5017,7 @@ void main()
 						else if(u8Current_Floor==6)
 						{
 							enCurrentState=enPiso6;
-							printf("main2Siguiente parada, piso %d\n\n", enCurrentState);
+							printf("Siguiente parada, piso %d\n\n", enCurrentState);
 							Moving();
 						}
 						else if(u8Current_Floor==7)
