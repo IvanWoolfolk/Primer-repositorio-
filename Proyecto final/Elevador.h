@@ -5,9 +5,12 @@
 
 
 /***********************************defines************************************/
-#define APAGADO 0
-#define MAX_PEOPLE 6
-#define END_REQUEST 16
+#define MAX_PEOPLE 4
+#define END_REQUEST 5
+#define NO_REQUEST_1 16
+#define NO_REQUEST_2 17
+#define NO_REQUEST_3 18
+#define NO_REQUEST_4 19
 
 /*******************************typedefines************************************/
 typedef unsigned char uint8;
